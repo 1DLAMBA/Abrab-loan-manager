@@ -1,0 +1,252 @@
+<div class="row">
+  <div class="{{ sale.design }} col-xl-4" *ngFor="let sale of sales">
+    <app-card [hidHeader]="true">
+      <h6 class="mb-4">{{ sale.title }}</h6>
+      <div class="row d-flex align-items-center">
+        <div class="col-9">
+          <h3 class="f-w-300 d-flex align-items-center m-b-0">
+            <i class="feather {{ sale.icon }} f-30 m-r-10"></i>{{ sale.amount }}
+          </h3>
+        </div>
+        <div class="col-3 text-end">
+          <p class="m-b-0">{{ sale.percentage }}</p>
+        </div>
+      </div>
+      <div class="m-t-30">
+        <ngb-progressbar
+          type="text-primary"
+          height="7px"
+          [value]="sale.progress"
+        ></ngb-progressbar>
+      </div>
+    </app-card>
+  </div>
+  <!-- <div class="col-xl-8 col-md-6">
+    <app-card cardTitle="Users From United States">
+      <div id="world-low" style="height: 450px"></div>
+    </app-card>
+  </div> -->
+
+
+  <!-- <div class="col-xl-4 col-md-6">
+    <div class="card bg-c-blue">
+      <div class="card-header borderless">
+        <h5 class="text-white">Earnings</h5>
+      </div>
+      <div class="card-block" style="padding: 0 25px">
+        <div class="earning-text mb-0">
+          <h3 class="mb-2 text-white f-w-300">
+            $4295.36 <i class="feather icon-arrow-up teal accent-3"></i>
+          </h3>
+          <span class="text-uppercase text-white d-block">Total Earnings</span>
+        </div>
+        <div
+          id="widget-line-chart"
+          class="WidgetlineChart2 ChartShadow"
+          style="height: 180px"
+        ></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-block {{ list.design }}" *ngFor="let list of card">
+        <div class="row d-flex align-items-center">
+          <div class="col-auto">
+            <i class="feather {{ list.icon }} f-30"></i>
+          </div>
+          <div class="col">
+            <h3 class="f-w-300">{{ list.number }}</h3>
+            <span class="d-block text-uppercase">{{ list.text }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+  <!-- <div class="{{ list.design }} col-xl-4" *ngFor="let list of social_card">
+    <div class="card card-social">
+      <div class="card-block border-bottom">
+        <div class="row align-items-center justify-content-center">
+          <div class="col-auto">
+            <i class="{{ list.icon }} f-36"></i>
+          </div>
+          <div class="col text-end">
+            <h3>{{ list.amount }}</h3>
+            <h5 class="{{ list.color }} mb-0">
+              {{ list.percentage }} <span class="text-muted">Total Likes</span>
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="card-block">
+        <div class="row align-items-center justify-content-center card-active">
+          <div class="col-6">
+            <h6 class="text-center m-b-10">
+              <span class="text-muted m-r-5">Target:</span>{{ list.target }}
+            </h6>
+            <ngb-progressbar
+              type="text-primary"
+              height="6px"
+              [value]="list.progress"
+            ></ngb-progressbar>
+          </div>
+          <div class="col-6">
+            <h6 class="text-center m-b-10">
+              <span class="text-muted m-r-5">Duration:</span>{{ list.duration }}
+            </h6>
+            <ngb-progressbar
+              type="text-primary"
+              height="6px"
+              [value]="list.progress2"
+            ></ngb-progressbar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+  <!-- <div class="col-xl-4 col-md-6">
+    <app-card cardTitle="Rating">
+      <div class="row align-items-center justify-content-center m-b-20">
+        <div class="col-6">
+          <h2 class="f-w-300 d-flex align-items-center float-start m-0">
+            4.7 <i class="fas fa-star f-10 m-l-10 text-c-yellow"></i>
+          </h2>
+        </div>
+        <div class="col-6">
+          <h6 class="d-flex align-items-center float-end m-0">
+            0.4 <i class="fas fa-caret-up text-c-green f-22 m-l-10"></i>
+          </h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12" *ngFor="let list of progressing">
+          <h6 class="align-items-center float-start">
+            <i class="fas fa-star f-10 m-r-10 text-c-yellow"></i
+            >{{ list.number }}
+          </h6>
+          <h6 class="align-items-center float-end">{{ list.amount }}</h6>
+          <div class="m-t-30 m-b-20">
+            <ngb-progressbar
+              type="text-primary"
+              height="6px"
+              [value]="list.progress"
+            ></ngb-progressbar>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div> -->
+  <div class="col-xl-12 col-md-12">
+    <app-card
+      cardTitle="New Users"
+      cardClass="Recent-Users"
+      blockClass="px-0 py-3"
+    >
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <tbody>
+            <tr class="unread" *ngFor="let table of user">
+              <td>
+                <img *ngIf="table.passport"
+                  class="rounded-circle"
+                  style="width: 40px"
+                  src="{{ avatar_file + table.passport }}"
+                  alt="activity-user"
+                />
+                
+              </td>
+              <td>
+                <h6 class="mb-1">{{ table.name }}</h6>
+                <p class="m-0">{{ table.email }}</p>
+              </td>
+              <td>
+                <h6 class="text-muted">
+                  <i class="fas fa-circle {{ table.color }} f-10 m-r-15"></i
+                  >{{ table.time }}
+                </h6>
+              </td>
+              <td>
+                <button type="button" class="btn shadow-3 btn-rounded btn-danger">
+                  Reject</button
+                >
+                <button (click)="approve(table.id)" type="button" class="btn shadow-3 btn-rounded btn-success">
+                  Approve</button
+                >
+              </td>
+              <td>
+                <button type="button" class="btn shadow-3 btn-icon btn-rounded btn-info"  (click)="open(myModalContent)" (click)="view(table.id)">
+                  <i class="feather icon-eye"></i>
+                </button>
+              </td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+    <ng-template #myModalContent centered let-modal>
+      
+      <div *ngIf="loader" class=" text-center spinner-grow .section-header" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div *ngIf="userModal">
+        <div class="modal-header">
+          <h4 class="modal-title">{{oneuser.name}}</h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+        <img width="150px" src="{{ avatar_file + oneuser.passport }}">
+      </div>
+      <h3  class="modal-body section-header">Personal Details</h3>
+        <div class="modal-body row flex">
+        <div class="col-6">
+          <p>Name:{{oneuser.name}}</p>
+        </div>
+        <div class="col-6">
+          <p>Email:{{oneuser.email}}</p>
+        </div>
+      </div>
+      <div class="modal-body row flex">
+        <div class="col-3">
+          <p>Country:{{oneuser.country}}</p>
+        </div>
+        <div class="col-3">
+          <p>State:{{oneuser.state}}</p>
+        </div>
+        <div class="col-3">
+          <p>City:{{oneuser.city}}</p>
+        </div>
+        <div class="col-3">
+          <p>Address:{{oneuser.address}}</p>
+        </div>
+        <div class="col-6">
+          <p>Employer Phone Number:{{oneuser.employer_phoneno}}</p>
+        </div>
+      </div> 
+      <hr>
+
+      <h3 class="modal-body section-header">Identification Details</h3>
+     <div class="modal-body mb-3 row flex">
+        <div class="col-6">
+        <p>{{oneuser.identification_type}}:{{oneuser.identification_number1}}</p>
+        <div class="border  rounded-2 p-2">
+            <a target="_blank" href="{{ avatar_file + oneuser.identification_file1 }}">
+            <img width="150px" src="{{ avatar_file + oneuser.identification_file1 }}">
+          </a>
+        </div>
+        </div>
+        <div class="col-6">
+          <p>{{oneuser.identification_type2}}:{{oneuser.identification_number2}}</p>
+          <div class="border  rounded-2 p-2">
+            <a target="_blank" href="{{ avatar_file + oneuser.identification_file2 }}">
+
+            <img width="150px" src="{{ avatar_file + oneuser.identification_file2 }}">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    </ng-template>
+  </div>
+</div>

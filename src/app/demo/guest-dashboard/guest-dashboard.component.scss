@@ -1,0 +1,28 @@
+.cancel .card{
+    margin-bottom: 0px;
+}
+h1{
+    font-size: 3rem;
+    font-family:Gabarito;
+  
+  
+}
+.headclass{
+    background-size: cover;
+    background-image: url('../../../assets/images/AbrabLogo2.png');
+
+}
+.headhold{
+    background-color: rgba(255, 255, 255, 0.708);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(5px);
+
+}
+h1 small{
+    font-size:0.8rem
+}
+::ng-deep{
+    .test{
+        border-radius: 40px;
+    }
+}

@@ -1,0 +1,130 @@
+<div class="headclass"><div class="headhold"><h1 class="text-center bg-opacity-10 bg-success d-print-none">ABRAB NIGERIA LIMITED<br><small>RC NO:1870243</small></h1></div></div>
+<div class=" justify-content-center " style="min-height: 100vh;">
+<div *ngIf="!user.approved" class="card-block card pt-5 p-3 vh-100 d-flex align-items-center just" >
+    <h4>Hello, {{user.name}}</h4>
+    <img width="200px" src="../../../assets/images/AbrabLogo.png">
+    <span  class="feather icon-file-text text-center"></span>
+    <p class="text-center " width="200px" >Your Registeration Has Been submited and is awaiting Approval</p>
+</div>
+
+<div *ngIf="user.approved&&!user.has_loan" class=" d-flex mx-auto justify-content-center align-items-center vh-100 col-xl-4" >
+    <app-card [hidHeader]="true">
+        <h4>Hello, {{user.name}}</h4>
+      <h6 class="mb-4">Welcome to Abrab Limited Nigeria</h6>
+      <div class="ms-3 align-items-center">
+        <div class="">
+          <span class="mx-auto">
+            <img  width="200px" src="../../../assets/images/AbrabLogo.png">
+          </span>
+        </div>
+        
+      </div>
+      <p class="text-center " width="200px" ><span class="feather icon-check-circle text-c-green text-center"></span> Your Registeration Has Been Approved</p>
+      
+      <div class="m-t-30 d-flex mx-auto">
+        <button (click)="proceed()" type="button" class="mx-auto btn btn-outline-success btn-rounded ">Proceed<span class="feather icon-arrow-right"></span></button>
+      </div>
+    </app-card>
+  </div>
+  <div *ngIf="user.has_loan" class="rounded-4 mx-auto d-flex justify-content-center  row gap-1 flex-wrap-reverse " style="min-height: 100vh;">
+    <!-- <div class="rounded-4 mx-auto">
+      <app-card  class="test" [hidHeader]="true">
+    <img width="180px" src="../../../assets/images/AbrabLogo2.png">
+        <h4>Personal Details</h4>
+        Name: {{user.name}}  &nbsp;&nbsp; Email:{{user.email}} &nbsp;&nbsp; Phone Number:{{user.phoneno}}<br>
+            <strong class="">Country:</strong> {{user.country}} &nbsp;&nbsp; <strong> State:</strong>{{user.state}} &nbsp;&nbsp; <strong>City:</strong>{{user.city}} &nbsp;&nbsp; <strong> Address:</strong>{{user.address}}<br>
+            {{user.identification_type}}:{{user.identification_number1}}&nbsp;&nbsp; {{user.identification_type2}}: {{user.identification_number2}}<br>
+            <form *ngIf="!user.account_number" [formGroup]="AccountForm">
+            <div class="input-group mb-3">
+              <input type="text"   name="bank" class="form-control" formControlName="bank" placeholder="Bank" />
+              <input type="text" formControlName="account_number" name="account_number" class="form-control" placeholder="Accnt No." />
+              <button (click)="accountform()" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+          <div *ngIf="user.account_number" class="border p-2 m-3">
+            <h6>Bank:&nbsp;{{user.bank}}</h6>&nbsp;&nbsp;&nbsp;
+            <h6>Account Number:&nbsp;{{user.account_number}}</h6>
+          </div>
+            <h4>Guarantors' Info</h4>
+            <h6>First Guarantor</h6>
+            <strong class="">Guarantor Name:</strong> {{user.guarantor1_name}} &nbsp;&nbsp; 
+            <strong> Guarantor Phone No.:</strong>{{user.guarantor1_phoneno}} &nbsp;&nbsp;
+             <strong> Guarantor Address:</strong>{{user.guarantor1_address}}<br>
+            <strong class="">{{user.guarantor1_identification_type1}}:</strong> {{user.guarantor1_identification1}} &nbsp;&nbsp;
+             <strong> {{user.guarantor1_identification_type2}}:</strong>{{user.guarantor1_identification2}}<br>
+            <strong class="">{{user.guarantor1_identification_file1}}:</strong> {{user.guarantor1_identification_file2}}
+            <br>
+            <hr>
+            <h6>Second Guarantor</h6>
+            <strong class="">Guarantor Name:</strong> {{user.guarantor2_name}} &nbsp;&nbsp; 
+            <strong> Guarantor Phone No.:</strong>{{user.guarantor2_phoneno}} &nbsp;&nbsp;
+             <strong> Guarantor Address:</strong>{{user.guarantor2_address}}<br>
+            <strong class="">{{user.guarantor2_identification_type1}}:</strong> {{user.guarantor2_identification1}} &nbsp;&nbsp;
+              <strong> {{user.guarantor2_identification_file1}}:</strong>{{user.guarantor2_identification_type2}}<br>
+            <strong class="">{{user.guarantor2_identification2}}:</strong> {{user.guarantor2_identification_file2}}
+            
+  </app-card>
+    </div> -->
+    <div class=" cancel col-12 col-lg-6">
+      <div class=" card shadow-sm rounded-4  p-3" >
+        <img width="180px" src="../../../assets/images/AbrabLogo2.png">
+        <h4>Personal Details</h4>
+        Name: {{user.name}}  &nbsp;&nbsp; Email:{{user.email}} &nbsp;&nbsp; Phone Number:{{user.phoneno}}<br>
+            Country:{{user.country}} &nbsp;&nbsp;  State:{{user.state}} &nbsp;&nbsp; City:{{user.city}} &nbsp;&nbsp; Address:{{user.address}}<br>
+            {{user.identification_type}}:{{user.identification_number1}}&nbsp;&nbsp; {{user.identification_type2}}: {{user.identification_number2}}<br>
+            <form *ngIf="!user.account_number" [formGroup]="AccountForm">
+            <div class="input-group mb-3">
+              <input type="text"   name="bank" class="form-control" formControlName="bank" placeholder="Bank" />
+              <input type="text" formControlName="account_number" name="account_number" class="form-control" placeholder="Accnt No." />
+              <input type="text" formControlName="account_name" name="account_name" class="form-control" placeholder="Accnt Name." />
+              <button (click)="accountform()" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+          <div *ngIf="user.account_number" class="border rounded-3 shadow-sm p-2 fw-bold m-3">
+            <h6>Bank:&nbsp;{{user.bank}}</h6>&nbsp;&nbsp;&nbsp;
+            <h6>Account Name:&nbsp;{{user.account_name | uppercase}}</h6>&nbsp;&nbsp;&nbsp;
+            <h6>Account Number:&nbsp;{{user.account_number}}</h6>
+          </div>
+            <h4>Guarantors' Info</h4>
+            <h6>First Guarantor</h6>
+            Guarantor Name: {{user.guarantor1_name}} &nbsp;&nbsp; 
+             Guarantor Phone No.:{{user.guarantor1_phoneno}} &nbsp;&nbsp;
+             Guarantor Address:{{user.guarantor1_address}}<br>
+            <!-- <strong class="">{{user.guarantor1_identification_type1}}:</strong> {{user.guarantor1_identification1}} &nbsp;&nbsp;
+             <strong> {{user.guarantor1_identification_type2}}:</strong>{{user.guarantor1_identification2}}<br>
+            <strong class="">{{user.guarantor1_identification_file1}}:</strong> {{user.guarantor1_identification_file2}} -->
+            <br>
+            <hr>
+            <h6>Second Guarantor</h6>
+            Guarantor Name: {{user.guarantor2_name}} &nbsp;&nbsp; 
+             Guarantor Phone No.:{{user.guarantor2_phoneno}} &nbsp;&nbsp;
+             Guarantor Address:{{user.guarantor2_address}}<br>
+            <!-- <strong class="">{{user.guarantor2_identification_type1}}:</strong> {{user.guarantor2_identification1}} &nbsp;&nbsp;
+              <strong> {{user.guarantor2_identification_file1}}:</strong>{{user.guarantor2_identification_type2}}<br>
+            <strong class="">{{user.guarantor2_identification2}}:</strong> {{user.guarantor2_identification_file2}}
+             -->
+           
+              </div>
+    </div>
+    <div class=" cancel col-12  col-lg-4 ">
+      <div class=" card shadow-sm rounded-4 ms-md-3 p-3" >
+        <div class="text-center">
+    <img class="img-fluid" width="150px" src="{{ avatar_file + user.passport }}">
+  </div>
+        <h4>Loan Details</h4>
+        <span *ngIf="!user.active" class="badge bg-warning text-dark col-3 ">Processing</span>
+        <span *ngIf="user.active" class="badge bg-success col-3 ">Active</span>
+        Amount: ₦{{user.loans.loan_amount | number:'1.2-2'}}  &nbsp;&nbsp; Installment(months):{{user.loans.installment_period}} &nbsp;&nbsp; Interest:₦{{user.loans.interest | number:'1.2-2'}}<br><hr>
+           <span> <strong class="">Monthly Interest:</strong> ₦{{user.loans.monthly_interest | number:'1.2-2'}} &nbsp;&nbsp;<br></span><br>
+           <span> <strong> Monthly payment with interest:</strong>₦{{user.loans.monthly_payment_with_interest | number:'1.2-2'}} &nbsp;&nbsp;</span><br>
+           <span> <strong>Monthly payment without Interest:</strong>₦{{user.loans.monthly_payment_without_interest | number:'1.2-2'}} &nbsp;&nbsp; </span><br><strong> 
+              Total Repayment:</strong>₦{{user.loans.total_repayment | number:'1.2-2'}}<br>
+      
+           
+              </div>
+    </div>
+    
+  </div>
+  
+</div>
+

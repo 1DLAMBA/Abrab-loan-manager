@@ -1,0 +1,16 @@
+<div class="">
+  <a [routerLink]="['/dashboard/default/']" class="b-brand">
+    <div class="b-bg">
+      <i class="feather"><img style="width: 45px;border-radius: 50%;" src="../../../../../../assets/images/AbrabLogo.png"></i>
+    </div>
+    <span class="b-title">Abrab Ltd Ng</span>
+  </a>
+  <a
+    href="javascript:"
+    class="mobile-menu"
+    [ngClass]="{ on: navCollapsed }"
+    id="mobile-collapse"
+    (click)="navCollapse()"
+    ><span></span
+  ></a>
+</div>

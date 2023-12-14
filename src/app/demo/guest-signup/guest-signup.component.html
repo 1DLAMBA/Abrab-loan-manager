@@ -1,0 +1,186 @@
+<div class="auth-wrapper">
+    <div class="auth-content">
+      <div class="auth-bg">
+        <span class="r"></span>
+        <span class="r s"></span>
+        <span class="r s"></span>
+        <span class="r"></span>
+      </div>
+      <div class="card">
+        <div class="card flex justify-content-center gap-2">
+          <p-toast></p-toast>
+         </div>
+        <form class="" [formGroup]="RegistrationForm">
+        <div class="card-body text-center">
+          <div class="mb-4">
+            <img class="auth-icon" alt="" width="100" src="../../../assets/images/AbrabLogo.png">
+          </div>
+          <ng-template #standardTpl> I'm a standard toast </ng-template>
+
+          <ng-template #filefail Tpl> Upload Failed </ng-template>
+          <ng-template #filesuccess Tpl> <span class="feather icon-upload"></span>Image Uploaded </ng-template>
+          <ng-template #passwordError Tpl> <span class="feather icon-x-circle"> Password mismatch</span> </ng-template>
+          <ng-template #success Tpl><span class="feather icon-check-circle"> Registration Successful </span></ng-template>
+          
+          <ng-template #dangerTpl>
+            
+            Please fill form accordingly
+          </ng-template>
+          <app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
+          
+          <div *ngIf="phase1">
+            
+          <h3 class="mb-4">Sign up</h3>
+          <div class="h-full flex flex-column surface-card" style="border-radius: 6px">
+            <div class="deep-green-font font-bold mb-2">
+              Profile Picture
+            </div>
+            <div *ngIf="loader" style="
+            border-radius: 50%;
+            height: 200px;
+            width: 200px;
+          " class="spinner-border text-success" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <img *ngIf="img" style="
+                border-radius: 6px;
+                height: 200px;
+                width: 200px;
+              "
+              class="border rounded shadow-sm p-25 img-fix-h img-fit img-fluid mb-2 p-link shadow-2 w-full"
+              [src]="uploadedAvatarFile" onError="this.src='../../../assets/images/user/avatar-2.jpg';"
+              alt="Avatar File" />
+            <button pButton pRipple type="button" label="Upload Paasport" (click)="avatar.click()"
+              class="p-3 w-full mt-auto p-button-primary p-button-raised"></button>
+            <input type="file" #avatar name="AvatarUpload" id="AvatarUpload" hidden accept="image/jpg,image/jpeg,image/png" maxFileSize="2048" (change)="handleFileUpload($event, 'avatar', filefail, filesuccess)" />
+          </div>
+
+          <div class="input-group mb-3">
+            <input formControlName="name" name="name" type="text" class="form-control" placeholder="Full Name" />
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="email" name="email" type="email" class="form-control" placeholder="Email" />
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="phoneno" name="phoneno" type="number" class="form-control" placeholder="Phone Number" />
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="country" name="country" type="text" class="form-control" placeholder="Country" />
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="state" name="state" type="text" class="form-control" placeholder="State" />
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="city" name="city" type="text" class="form-control" placeholder="City" />
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="address" name="address" type="text" class="form-control" placeholder="Address" />
+          </div>
+          <div class="input-group mb-4">
+            <input formControlName="password" name="password" type="password" class="form-control" placeholder="Password" />
+          </div>
+          <div class="input-group mb-4">
+            <input formControlName="confirm_password" name="confirm_password"  type="password" class="form-control" placeholder="Confirm Password" />
+          </div>
+         
+        
+          <button (click)="next1(passwordError)" class="btn btn-primary shadow-2 mb-4">Next</button>
+          <p class="mb-0 text-muted">
+            Already have an account?
+            <a [routerLink]="['/guest-login']"> Log in</a>
+          </p>
+          </div>
+          <!-- phsae 2 -->
+          <div *ngIf="phase2" >
+            <h3 class="mb-4">Sign up</h3>
+            <small>Id 1</small>
+            <div style="justify-content: space-between;" class="input-group mb-3">
+              <input type="radio" formControlName="identification_type" name="identification_type" value="nin" placeholder="Identification Number" />NIN<br>
+              <input type="radio" formControlName="identification_type" name="identification_type" value="voters card" placeholder="Identification Number" />Voter's card
+              <input type="radio" formControlName="identification_type" name="identification_type" value="Drivers License" placeholder="Identification Number" /> Driver's License
+
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" formControlName="identification_number1" name="identification_number1" class="form-control" placeholder="Identification Number" />
+               </div>
+            <div class=" mb-3">
+              <button pButton class="p-button p-button-outlined" pRipple type="button" label="Upload Identification File" (click)="identification1.click()"
+              class="p-3 w-full mt-auto p-button-primary p-button-raised"></button>
+            <input type="file" #identification1 name="identification_file1" id="identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf" maxFileSize="2048" (change)="handleFileUpload($event, 'identification_file1', filefail, filesuccess)" />
+          
+            </div>
+            <small>Another National Id or Work Place ID</small>
+            <div style="justify-content: space-around;" class="input-group mb-3">
+              <span>
+              <label for="nin">NIN</label>
+              <input formControlName="identification_type2"  id="nin" type="radio" name="identification_type2" value="nin"  />
+              </span> 
+              <span>
+              <label for="v_card">Voter's card</label>
+              <input formControlName="identification_type2"  id="v_card" type="radio"  name="identification_type2" value="voters card"/>
+              </span>
+              <span>
+              <label for="drivers_license"> Driver's License</label>
+              <input formControlName="identification_type2"  id="drivers_license" type="radio"  name="identification_type2" value="drivers license" />
+              </span>
+              <span>
+              <label for="workplace_id"> WorkPlace Id</label>
+              <input formControlName="identification_type2"  id="workplace_id" type="radio"  name="identification_type2" value="workplace id"/>
+              </span>
+            </div>
+            <div class="input-group mb-3">
+              <input formControlName="identification_number2" name="identification_number2" type="text" class="form-control" placeholder="Identification Number" />
+            </div>
+            <div class="mb-3">
+              <button pButton class="p-button p-button-outlined" pRipple type="button" label="Upload Identification File" (click)="identification2.click()"
+              class="p-3 w-full mt-auto p-button-primary p-button-raised"></button>
+            <input type="file"  #identification2 name="identification_file2" id="identification_file2" hidden accept="image/jpg,image/jpeg,image/png,pdf" maxFileSize="2048" (change)="handleFileUpload($event, 'identification_file2', filefail, filesuccess)" />
+          </div>
+            <div class="input-group mb-3">
+              <input formControlName="employer_no" type="number" name="employer_no" class="form-control" placeholder="Employer Phone No" />
+            </div>
+            <button (click)="submit(successTpl, dangerTpl)" class="btn btn-primary shadow-2 mb-4">Submit</button>
+            </div>
+          <!-- phase 3 -->
+          <!-- <div *ngIf="phase3" >
+            <h3 class="mb-4">Sign up</h3>
+            <small>Guarantor 1</small>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Guarantor's name" />
+            </div>
+            <div class="input-group mb-3">
+              <input type="number" class="form-control" placeholder="Guarantor's phone no" />
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Guarantor's address" />
+            </div>
+            <div class="input-group mb-3">
+              <input type="number" class="form-control" placeholder="Identification File" />
+            </div>  
+            
+            <small>Guarantor 2</small>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Guarantor's name" />
+            </div>
+            <div class="input-group mb-3">
+              <input type="number" class="form-control" placeholder="Guarantor's phone no" />
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Guarantor's address" />
+            </div>
+            <div class="input-group mb-3">
+              <input type="number" class="form-control" placeholder="Identification File" />
+            </div> 
+            
+            <button class="btn btn-primary shadow-2 mb-4">Sign up</button>
+            
+          </div> -->
+        </div>
+      </form>
+      </div>
+
+      
+
+    </div>
+  </div>
+  
