@@ -1,5 +1,5 @@
 {
-  "name": "datta-able-free-angular-admin-template",
+  "name": "Abrab",
   "version": "3.0.0",
   "author": "CodedThemes",
   "scripts": {
@@ -30,6 +30,7 @@
     "ng-apexcharts": "^1.8.0",
     "ngx-color-picker": "^14.0.0",
     "ngx-scrollbar": "^13.0.3",
+    "ngx-spinner": "^16.0.2",
     "primeng": "^17.0.0-rc.1",
     "rxjs": "~7.8.1",
     "screenfull": "^6.0.2",

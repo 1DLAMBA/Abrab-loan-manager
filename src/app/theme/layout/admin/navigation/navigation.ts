@@ -111,22 +111,22 @@ const NavigationItems = [
       },
     ],
   },
-  {
-    id: 'chart-maps',
-    title: 'Chart',
-    type: 'group',
-    icon: 'icon-charts',
-    children: [
-      {
-        id: 'apexChart',
-        title: 'ApexChart',
-        type: 'item',
-        url: 'apexchart',
-        classes: 'nav-item',
-        icon: 'feather icon-pie-chart',
-      },
-    ],
-  },
+  // {
+  //   id: 'chart-maps',
+  //   title: 'Chart',
+  //   type: 'group',
+  //   icon: 'icon-charts',
+  //   children: [
+  //     {
+  //       id: 'apexChart',
+  //       title: 'ApexChart',
+  //       type: 'item',
+  //       url: 'apexchart',
+  //       classes: 'nav-item',
+  //       icon: 'feather icon-pie-chart',
+  //     },
+  //   ],
+  // },
   // {
   //   id: 'pages',
   //   title: 'Pages',

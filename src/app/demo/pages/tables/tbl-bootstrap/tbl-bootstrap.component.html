@@ -1,46 +1,7 @@
 <div class="row">
-  <!-- <div class="col-xl-12">
-    <app-card
-      cardTitle="Basic Table"
-      [options]="false"
-      blockClass="table-border-style"
-    >
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </app-card>
-  </div> -->
 
-  <div class="col-xl-12">
+ 
+  <div *ngIf="pending" class="col-xl-12">
     <app-card
       cardTitle="Pending Loans"
       [options]="false"
@@ -123,6 +84,9 @@
         <p class="fw-bold">Bank:{{oneuser.bank}}</p>
         </div>
         <div class="col-6">
+          <p class="fw-bold">Account Name:{{oneuser.account_name}}</p>
+          </div>
+        <div class="col-6">
           <p class="fw-bold">Account Number:{{oneuser.account_number}}</p>
   
           </div>
@@ -135,7 +99,7 @@
       <p>{{oneuser.identification_type}}:{{oneuser.identification_number1}}</p>
       <div class="border d-flex mx-auto rounded-2 p-2">
         <a target="_blank" href="{{ avatar_file + oneuser.identification_file1 }}">
-          <img width="150px" src="{{ avatar_file + oneuser.identification_file1 }}">
+          <button class="btn btn-outline-success feather icon-eye"> View</button>
         </a>
       </div>
       </div>
@@ -143,7 +107,7 @@
         <p>{{oneuser.identification_type2}}:{{oneuser.identification_number2}}</p>
         <div class="border  rounded-2 p-2">
           <a target="_blank" href="{{ avatar_file + oneuser.identification_file2 }}">
-            <img width="150px" src="{{ avatar_file + oneuser.identification_file2 }}">
+            <button class="btn btn-outline-success feather icon-eye"> View</button>
           </a>
         </div>
       </div>
@@ -173,7 +137,7 @@
        <p>{{oneuser.guarantor1_identification_type1}}:{{oneuser.guarantor1_identification1}}</p>
        <div class="border  rounded-2 p-2">
         <a target="_blank" href="{{ avatar_file + oneuser.guarantor1_identification_file1 }}">
-        <img width="150px" src="{{ avatar_file + oneuser.guarantor1_identification_file1 }}">
+          <button class="btn btn-outline-success feather icon-eye"> View</button>
       </a>
       </div>
        </div>
@@ -181,7 +145,7 @@
          <p>{{oneuser.guarantor1_identification_type2}}:{{oneuser.guarantor1_identification2}}</p>
          <div class="border  rounded-2 p-2">
           <a target="_blank" href="{{ avatar_file + oneuser.guarantor1_identification_file2 }}">
-          <img width="150px" src="{{ avatar_file + oneuser.guarantor1_identification_file2}}">
+            <button class="btn btn-outline-success feather icon-eye"> View</button>
         </a>
         </div>
        </div>
@@ -208,7 +172,7 @@
        <p>{{oneuser.guarantor2_identification_type1}}:{{oneuser.guarantor2_identification1}}</p>
          <div class="border  rounded-2 p-2">
             <a target="_blank" href="{{ avatar_file + oneuser.guarantor2_identification_file1 }}">
-            <img width="150px" src="{{ avatar_file + oneuser.guarantor2_identification_file1 }}">
+              <button class="btn btn-outline-success feather icon-eye"> View</button>
           </a>
           </div>
        </div>
@@ -216,7 +180,7 @@
          <p>{{oneuser.guarantor2_identification_type2}}:{{oneuser.guarantor2_identification2}}</p>
          <div class="border  rounded-2 p-2">
           <a target="_blank" href="{{ avatar_file + oneuser.guarantor2_identification_file2 }}">
-          <img width="150px" src="{{ avatar_file + oneuser.guarantor2_identification_file2 }}">
+            <button class="btn btn-outline-success feather icon-eye"> View</button>
         </a>
         </div>
        </div>
@@ -224,7 +188,7 @@
   </div>
   </ng-template>
   
-<div class="card">
+<div  *ngIf="activeloaners" class="card">
     <p-table
         
         [value]="activeuser"
@@ -289,7 +253,8 @@
                 </th> -->
                 <th style="min-width:15rem">
                     <div class="flex align-items-center">
-                        Monthly Interest
+                       
+                      Total Interest
                         <!-- <p-columnFilter class="p-button-outlined" field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                             <ng-template pTemplate="filter" let-filter="filterCallback">
                                 <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
@@ -303,7 +268,8 @@
                 </th>
                 <th style="min-width: 20rem">
                     <div class="flex align-items-center">
-                        Total Interest
+                      
+                        3.5% Monthly Interest
                         <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
                     </div>
                 </th>
@@ -343,8 +309,10 @@
         </ng-template>
         <ng-template pTemplate="body" let-results>
             <tr>
-                <td>
-                    {{results.name}}
+                <td><div>
+                     <button class="btn button border" (click)="getloanerdetails(results.id)">{{results.name}}</button>
+                
+                    </div>
                 </td>
                 <td>
                 ₦ {{results.loans.loan_amount | number:'1.2-2'}}
@@ -363,17 +331,18 @@
                   {{results.loans.installment_period}}
                 </td>
                 <td>
-                  ₦   {{results.loans.monthly_interest}}
+                  ₦  {{results.loans.interest | number: '1.2-2'}}
+
                   </td>
               
                 <td>
                     <!-- <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar> -->
-                    ₦  {{results.loans.interest}}
+                    ₦   {{results.loans.monthly_interest | number: '1.2-2'}}
 
                 </td>
                 <td class="text-center">
                     <!-- <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i> -->
-                    ₦  {{results.loans.monthly_payment_with_interest}}
+                    ₦  {{results.loans.monthly_payment_with_interest | number: '1.2-2'}}
                 </td>
                 <td>
                   {{results.loans.months_paid}}
@@ -382,13 +351,13 @@
                 {{results.loans.months_left}}
             </td>
             <td>
-              ₦ {{results.loans.monthly_payment_without_interest}}
+              ₦ {{results.loans.monthly_payment_without_interest | number: '1.2-2'}}
           </td>
           <td>
-            ₦ {{results.loans.amount_paid_so_far}}
+            ₦ {{results.loans.amount_paid_so_far | number: '1.2-2'}}
             </td>
         <td>
-          ₦ {{results.loans.monthly_payment_with_interest}}
+          ₦ {{results.loans.outstanding | number: '1.2-2'}}
 
       </td>
       <!-- <td>
@@ -403,4 +372,268 @@
         </ng-template> -->
     </p-table>
 </div>
+
+<div  class=" p-2 card">
+  <div *ngIf="loanercard">
+  <div class="card flex justify-content-center">
+
+    <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        <ng-template pTemplate="header">
+            <div class="inline-flex align-items-center justify-content-center gap-2">
+
+                <span class="font-bold white-space-nowrap">Confirm</span>
+            </div>
+        </ng-template>
+        <p class="m-0">
+          Are You sure {{activeloan.name}} has paid For the month?
+        </p>
+        <ng-template pTemplate="footer">
+            <button class="btn btn-outline-danger" (click)="visible = false" > No</button> &nbsp;&nbsp;
+            <button class="btn btn-outline-success" (click)="this.updatepay(activeloan.loans.id)">Yes</button>
+        </ng-template>
+    </p-dialog>
+    </div>
+  <div >
+    <div class="modal-header">
+      <h4 class="modal-title">{{activeloan.name}}</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="switch()"></button>
+    </div>
+    <div class="modal-header">
+    <img width="150px" src="{{ avatar_file + activeloan.passport }}">
+    <button type="button" class="feather icon-check-circle btn btn-info btn-outline-success" value="Paid" aria-label="Close" (click)="showDialog()">Paid</button>
+    <button type="button" class="feather icon-printer btn btn-info btn-success" value="Letter" aria-label="Close" (click)="showacceptance()">Letter</button>
+
+  </div>
+  <h3  class="modal-body section-header">Personal Details</h3>
+    <div class="modal-body row flex">
+    <div class="col-6">
+      <p>Name:{{activeloan.name}}</p>
+    </div>
+    <div class="col-6">
+      <p>Email:{{activeloan.email}}</p>
+    </div>
+  </div>
+  <div class="modal-body row flex">
+    <div class="col-3">
+      <p>Country:{{activeloan.country}}</p>
+    </div>
+    <div class="col-3">
+      <p>State:{{activeloan.state}}</p>
+    </div>
+    <div class="col-3">
+      <p>City:{{activeloan.city}}</p>
+    </div>
+    <div class="col-3">
+      <p>Address:{{activeloan.address}}</p>
+    </div>
+    <div class="col-9">
+      <p>Employer Phone Number:{{activeloan.employer_phoneno}}</p>
+    </div>
+    <div class="col-6">
+      <p class="fw-bold">Bank:{{activeloan.bank}}</p>
+      </div>
+      <div class="col-6">
+      <p class="fw-bold">Account Name:{{activeloan.account_name}}</p>
+      </div>
+      <div class="col-6">
+        <p class="fw-bold">Account Number:{{activeloan.account_number}}</p>
+
+        </div>
+  </div> 
+  
+
+  <h5 class="modal-body section-header">Identification Details</h5>
+ <div class="modal-body mb-3 row flex">
+    <div class="col-6">
+    <p>{{activeloan.identification_type}}:{{activeloan.identification_number1}}</p>
+    <div class="border d-flex mx-auto rounded-2 p-2">
+      <a target="_blank" href="{{ avatar_file + activeloan.identification_file1 }}">
+        <button class="btn btn-outline-success feather icon-eye"> View</button>
+      </a>
+    </div>
+    </div>
+    <div class="col-6">
+      <p>{{activeloan.identification_type2}}:{{activeloan.identification_number2}}</p>
+      <div class="border  rounded-2 p-2">
+        <a target="_blank" href="{{ avatar_file + activeloan.identification_file2 }}">
+          <button class="btn btn-outline-success feather icon-eye"> View</button>
+        </a>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+  <h3  class="modal-body section-header">Guarantors' Details</h3>
+  <h5 class="modal-body section-header">First Guarantor</h5>
+    <div class="modal-body row flex">
+    <div class="col-6">
+      <p>Name:{{activeloan.guarantor1_name}}</p>
+    </div>
+    <div class="col-6">
+      <p>Phone Number:{{activeloan.guarantor1_phoneno}}</p>
+    </div>
+   
+  </div>
+  <div class="modal-body row flex">
+    <div class="col-3">
+      <p>Address:{{activeloan.guarantor1_address}}</p>
+    </div>
+    
+  </div> 
+  <h6 class="modal-body section-header">First Guarantor Id Details</h6>
+  <div class="modal-body mb-3 row flex">
+     <div class="col-6">
+     <p>{{activeloan.guarantor1_identification_type1}}:{{activeloan.guarantor1_identification1}}</p>
+     <div class="border  rounded-2 p-2">
+      <a target="_blank" href="{{ avatar_file + activeloan.guarantor1_identification_file1 }}">
+        <button class="btn btn-outline-success feather icon-eye"> View</button>
+    </a>
+    </div>
+     </div>
+     <div class="col-6">
+       <p>{{activeloan.guarantor1_identification_type2}}:{{activeloan.guarantor1_identification2}}</p>
+       <div class="border  rounded-2 p-2">
+        <a target="_blank" href="{{ avatar_file + activeloan.guarantor1_identification_file2 }}">
+          <button class="btn btn-outline-success feather icon-eye"> View</button>
+      </a>
+      </div>
+     </div>
+   </div>
+   <h5 class="modal-body section-header">Second Guarantor</h5>
+    <div class="modal-body row flex">
+    <div class="col-6">
+      <p class="fw-bold">Name:{{activeloan.guarantor2_name}}</p>
+    </div>
+    <div class="col-6">
+      <p>Phone Number:{{activeloan.guarantor2_phoneno}}</p>
+    </div>
+    
+  </div>
+  <div class="modal-body row flex">
+    <div class="col-3">
+      <p>Address:{{activeloan.guarantor2_address}}</p>
+    </div>
+    
+  </div> 
+  <h6 class="modal-body section-header">Second Guarantor Id Details</h6>
+  <div class="modal-body mb-3 row flex">
+     <div class="col-6">
+     <p>{{activeloan.guarantor2_identification_type1}}:{{activeloan.guarantor2_identification1}}</p>
+       <div class="border  rounded-2 p-2">
+          <a target="_blank" href="{{ avatar_file + activeloan.guarantor2_identification_file1 }}">
+            <button class="btn btn-outline-success feather icon-eye"> View</button>
+        </a>
+        </div>
+     </div>
+     <div class="col-6">
+       <p>{{activeloan.guarantor2_identification_type2}}:{{activeloan.guarantor2_identification2}}</p>
+       <div class="border  rounded-2 p-2">
+        <a target="_blank" href="{{ avatar_file + activeloan.guarantor2_identification_file2 }}">
+          <button class="btn btn-outline-success feather icon-eye"> View</button>
+      </a>
+      </div>
+     </div>
+   </div>
+  </div>
+</div>
+
+<div *ngIf="acceptance"  id="registration" class="letter p-5">
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeacceptance()"></button>
+  <button type="button" id="print"  class="feather icon-printer btn btn-outline-success" aria-label="Close" ></button>
+
+  <div class="modal-header">
+    <img width="150px" src="../../../../../assets/images/AbrabLogo.png" alt="">
+    <img width="150px" src="{{ avatar_file + activeloan.passport }}">
+
+  </div>
+  <div class="col-12 text-center ">
+    <div class=" text-center">
+    <h1 class="title">ABRAB NIGERIA LIMITED</h1>
+    </div>
+  </div>
+  <div class="row col-12">
+    <div class="col-9">
+      <p>Contact Address: Opposite Michael Block Industry opposite Kosa Kosa filling Station. Lambata Niger State</p><br>
+    </div>
+    <div class="col-6">
+      <p>Phone: 0814 585 6651 </p>
+    </div>
+    <div class="col-6">
+      Email: abrabnigerialtd@gmail.com
+    </div>
+    <div class="col-12 text-center">
+      <b>Motto:</b> We share our wealth with you !!!
+    </div>
+    <div class="col-12">
+      Name: {{activeloan.name}},
+    </div>
+    <div class="col-12">
+      Address: {{activeloan.address}}, {{activeloan.city}}, {{activeloan.state}}
+    </div>
+    <div class="col-12">
+      Guarantor 1: {{activeloan.guarantor1_name}}<br>Location: {{activeloan.guarantor1_address}}
+    </div>
+    <div class="col-12">
+      Guarantor 2: {{activeloan.guarantor2_name}}<br>Location: {{activeloan.guarantor2_address}}
+
+    </div>
+    <div class="col-12 mb-3">
+      {{activeloan.loans.created_at | date}}
+    </div>
+    <div class="col-12">
+      <u>ACCEPTANCE OF ₦{{activeloan.loans.loan_amount}} LOAN DISBURSEMENT IN {{activeloan.guarantor1_address}} ({{activeloan.phoneno}})</u>
+    </div>
+    <div class="col-12">
+      We write to inform you that your business loan of =N=3,000,000 will be disburse on 6TH DECEMBER 2023 to the account you provided below; 
+    </div>
+    <div class="col-12">
+      <div class="col-3">
+        Bank: {{activeloan.bank}}
+      </div>
+      <div class="col-4">
+        Acct Name: {{activeloan.account_name}}
+      </div>
+      <div class="col-3 mb-3">
+        Acct No.: {{activeloan.account_number}}
+      </div>
+    </div>
+    <div class="col-12 mb-3">
+      The loan attracts ₦{{activeloan.loans.interest}} @3.5% of monthly interest rate, application form and administrative charge #4,000 which shall be repaid along with the principal within the agreed period.  
+    </div>
+    <div class="col-12 mb-3">
+      The mode of repayment shall be as follows:<br>
+      Amount: ₦{{activeloan.loans.loan_amount | number: '1.2-2'}}&nbsp;&nbsp; Installment(months): {{activeloan.loans.loan_period}}&nbsp;&nbsp;Interest:₦{{activeloan.loans.interest | number: '1.2-2'}}<br>
+      Monthly Interest: ₦ {{activeloan.loans.monthly_interest | number: '1.2-2'}}<br>
+      Monthly Payment without interest: ₦ {{activeloan.loans.monthly_payment_without_interest | number: '1.2-2'}}<br>
+      Total Monthly Payment: ₦ {{activeloan.loans.monthly_payment_with_interest | number: '1.2-2'}}<br>
+      Starting on {{activeloan.loans.created_at | date}}
+    </div>
+    <div class="col-12 mb-3">
+      ALL LATE PAYMENT ATTRACT ₦5,000 DAILY   WITHOUT PLEAD AND YOUR GUARANTOR AND REFERER WILL BE HELD LIABLE FOR ANY DEFAULT OR EVENTUALITIES. WITHOUT BIAS, IN ATTEMPT TO RECOVER OUR FUNDS THIS LETTER CAN ALSO BE USE AS DIRECT LETTER TO THE UK EMBASSY, NIGERIA POLICE FORCE AND NEWSPAPER PUBLICATION FOR LEGAL ACTION.
+    </div>
+    <div class="col-12">All payments MUST be directed to our Bank details provided below </div>
+    <div class="col-12">ACCOUNT NAME.: ABRAB NIGERIA LIMITED</div>
+    <div class="col-12">ACCOUNT NUMBER: 067 680 2709</div>
+    <div class="col-12 mb-3">BANK NAME: GUARANTY TRUST BANK PLC</div>
+    <div class="col-12">Thanks for your cooperation.</div>
+    <div class="col-12 mb-3">Kind Regards,</div>
+    <div class="col-12 d-flex flex-wrap mt-3 gap-5">
+      <div class="col-lg-3 border-top">
+      For: Abrab Nigeria Limited</div>
+      <div class="col-lg-2 border-top">
+       {{activeloan.name}}
+      </div>
+      <div class="col-lg-2 border-top"> 
+      {{activeloan.guarantor1_name}}
+    </div>
+    <div class="col-lg-2 border-top">
+       {{activeloan.guarantor2_name}}
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+
   </div>

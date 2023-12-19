@@ -15,11 +15,13 @@ import { NgbModalBackdrop } from '@ng-bootstrap/ng-bootstrap/modal/modal-backdro
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
 // bootstrap import
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ButtonModule } from 'primeng/button';
 import { ToastsContainer } from 'src/app/demo/toasts-container.components';
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
     NgbTooltipModule,
     ToastsContainer,
     NgbToastModule,
-    ToastModule
+    ToastModule,
+    NgxSpinnerModule,
+    DialogModule
   ],
   exports: [
     CommonModule,
@@ -63,7 +67,9 @@ import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
     InputTextModule,
     ToastsContainer,
     NgbToastModule,
-    ToastModule
+    ToastModule,
+    NgxSpinnerModule,
+    DialogModule
   ],
 })
 export class SharedModule {}

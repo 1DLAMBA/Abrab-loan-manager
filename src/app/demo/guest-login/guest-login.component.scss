@@ -1,3 +1,33 @@
 :host ::ng-deep .p-toast{
     width:20rem;
   }
+  :host ::ng-deep .message{
+    z-index: 3;
+
+  }
+
+  .foothold{
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    z-index: 3;
+    bottom: 0;
+    border-top:1px solid #52525239;
+  }
+  .headhold{
+    position: fixed;
+    top: 0;
+  }
+  .foothold h1{
+    font-size: 0.7rem;
+    text-align: left;
+    
+  
+  }
+  .auth-wrapper{
+   
+  }
+  
+  h1 small{
+    font-size:0.8rem
+  }

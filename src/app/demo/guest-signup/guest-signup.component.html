@@ -1,3 +1,13 @@
+<div class="d-flex headhold shadow-sm container-fluid p-2 ">
+  <div class="text d-flex col-9" >
+    <a routerLink="../landing" class="d-flex">
+      <img src="../../../assets/images/AbrabLogo2.png" width="45px" class="rounded-circle" alt="">
+      <h1 class=" bg-opacity-10 align-self-center fs-6">ABRAB NIGERIA LIMITED<br><small>RC NO:1870243</small></h1>
+    </a>
+</div>
+ 
+</div>
+
 <div class="auth-wrapper">
     <div class="auth-content">
       <div class="auth-bg">
@@ -10,6 +20,7 @@
         <div class="card flex justify-content-center gap-2">
           <p-toast></p-toast>
          </div>
+         <button *ngIf="phase2" (click)="back()" class="btn btn-dark feather icon-arrow-left col-3" ></button>
         <form class="" [formGroup]="RegistrationForm">
         <div class="card-body text-center">
           <div class="mb-4">
@@ -17,8 +28,8 @@
           </div>
           <ng-template #standardTpl> I'm a standard toast </ng-template>
 
-          <ng-template #filefail Tpl> Upload Failed </ng-template>
-          <ng-template #filesuccess Tpl> <span class="feather icon-upload"></span>Image Uploaded </ng-template>
+          <ng-template #filefail Tpl> Upload Failed or file too large </ng-template>
+          <ng-template #filesuccess Tpl> <span class="feather icon-upload"></span>File Uploaded </ng-template>
           <ng-template #passwordError Tpl> <span class="feather icon-x-circle"> Password mismatch</span> </ng-template>
           <ng-template #success Tpl><span class="feather icon-check-circle"> Registration Successful </span></ng-template>
           
@@ -44,8 +55,8 @@
             </div>
             <img *ngIf="img" style="
                 border-radius: 6px;
-                height: 200px;
                 width: 200px;
+                height: auto;
               "
               class="border rounded shadow-sm p-25 img-fix-h img-fit img-fluid mb-2 p-link shadow-2 w-full"
               [src]="uploadedAvatarFile" onError="this.src='../../../assets/images/user/avatar-2.jpg';"
@@ -104,8 +115,8 @@
               <input type="text" formControlName="identification_number1" name="identification_number1" class="form-control" placeholder="Identification Number" />
                </div>
             <div class=" mb-3">
-              <button pButton class="p-button p-button-outlined" pRipple type="button" label="Upload Identification File" (click)="identification1.click()"
-              class="p-3 w-full mt-auto p-button-primary p-button-raised"></button>
+              <button pButton class="p-button p-button-outlined" pRipple type="button"  (click)="identification1.click()"
+              class="p-3 w-full mt-auto p-button-primary p-button-raised"><span class="spinner-border spinner-border-sm" *ngIf="UI1" role="status" aria-hidden="true"></span>&nbsp;&nbsp;Upload Identification File</button>
             <input type="file" #identification1 name="identification_file1" id="identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf" maxFileSize="2048" (change)="handleFileUpload($event, 'identification_file1', filefail, filesuccess)" />
           
             </div>
@@ -132,8 +143,8 @@
               <input formControlName="identification_number2" name="identification_number2" type="text" class="form-control" placeholder="Identification Number" />
             </div>
             <div class="mb-3">
-              <button pButton class="p-button p-button-outlined" pRipple type="button" label="Upload Identification File" (click)="identification2.click()"
-              class="p-3 w-full mt-auto p-button-primary p-button-raised"></button>
+              <button pButton class="p-button p-button-outlined" pRipple type="button"  (click)="identification2.click()"
+              class="p-3 w-full mt-auto p-button-primary p-button-raised"><span class="spinner-border spinner-border-sm" *ngIf="UI2" role="status" aria-hidden="true"></span>&nbsp;&nbsp;Upload Identification File</button>
             <input type="file"  #identification2 name="identification_file2" id="identification_file2" hidden accept="image/jpg,image/jpeg,image/png,pdf" maxFileSize="2048" (change)="handleFileUpload($event, 'identification_file2', filefail, filesuccess)" />
           </div>
             <div class="input-group mb-3">
@@ -183,4 +194,14 @@
 
     </div>
   </div>
+  <div class="d-flex foothold gap-5  container-fluid p-2 ps-4 pe-4 ">
+    <div class="text" >
+    <h1 class=" fw-bold bg-opacity-10"><u>Contact Us</u><br> <span class="feather icon-phone"> 0814 585 6651</span><br><small><span class="feather icon-mail">: abrabnigerialtd@gmail.com</span></small></h1>
+</div>
+    <div class="buttons d-flex ms-auto">
+      <small style=" " class="align-self-end">
+        <u>Address</u><br>  Opposite Michael Block Industry opposite Kosa Kosa filling Station. Lambata Niger State. 
+      </small>
+    </div>
+</div>
   
