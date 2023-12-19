@@ -1,8 +1,10 @@
-import { Component, inject, OnDestroy, TemplateRef } from '@angular/core';
+import { Component, inject, OnDestroy, TemplateRef, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute,
   ActivatedRouteSnapshot,
   Route, } from '@angular/router';
+import { NgxSpinnerService } from "ngx-spinner";
+
   import { ToastService } from '../toast.service';
  import { ToastsContainer } from '../toasts-container.components';
   import { environment } from '../environment';
@@ -15,25 +17,33 @@ import { Router, ActivatedRoute,
  
   providers: [MessageService]
 })
-export class GuestLoginComponent {
+export class GuestLoginComponent implements OnInit{
   toastService = inject(ToastService);
 LoginForm: FormGroup;
 phase1:boolean=true;
 phase2:boolean = false;
 phase3: boolean = false;
-
+ngOnInit() {
+  this.spinner.show();
+  setTimeout(() => {
+    /** spinner ends after 5 seconds */
+    this.spinner.hide();
+  }, 5000);
+}
 constructor(
   private readonly fb: FormBuilder,
   private readonly router: Router,
   private route: ActivatedRoute,
   private _http:HttpClient,
-  private messageService: MessageService
+  private messageService: MessageService,
+  private spinner: NgxSpinnerService
 ){
   this.LoginForm = this.fb.group({
     email: this.fb.control('', [Validators.required]),
     password: this.fb.control('', [Validators.required]),
   })
 }
+
 
 showSuccess() {
   this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
@@ -71,6 +81,7 @@ ngOnDestroy(): void {
 }
 
 submit(){
+  this.spinner.show();
   const formData = {
     email: this.LoginForm.value.email,
     password: this.LoginForm.value.password,
@@ -80,15 +91,21 @@ submit(){
 
     return;
   }
+  
   this._http.post(`${environment.baseUrl}/user/login`, formData)
   .subscribe((response:any)=>{
     if(response.user){
       console.log(response);
       localStorage.setItem('id', response.user.id);
+      
+        /** spinner ends after 5 seconds */
+        this.spinner.hide();
+     
       this.router.navigate(['/guest-dashboard']);
       return;
     }
-   
+    this.spinner.hide();
+  
     
     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Details' });
 

@@ -7,6 +7,8 @@ import { Router, ActivatedRoute,
  import { ToastsContainer } from '../toasts-container.components';
   import { environment } from '../environment';
   import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NgxSpinnerService } from 'ngx-spinner';
+  
 
 @Component({
   selector: 'app-guest-loan-application',
@@ -17,6 +19,10 @@ export class GuestLoanApplicationComponent {
   toastService = inject(ToastService);
 LoanForm: FormGroup;
   loan1:boolean=true;
+  UI1:boolean=false;
+  UI2:boolean=false;
+  UI3:boolean=false;
+  UI4:boolean=false;
   loan2:boolean=false;
   successTpl:TemplateRef<any>;
   id:string = this.route.snapshot.params['id'];
@@ -34,6 +40,7 @@ LoanForm: FormGroup;
     private readonly router: Router,
     private route: ActivatedRoute,
     private _http:HttpClient,
+    private spinner: NgxSpinnerService
   ){
     this.LoanForm = this.fb.group({
       loan_amount: this.fb.control('', [Validators.required]),
@@ -72,7 +79,24 @@ LoanForm: FormGroup;
 	}
 
   handleFileUpload(e: any, type: string, success, danger) {
-    
+     switch (type) {
+          case 'g1_identification_file1':
+            // Code specific to the "identification card" file type for individuals
+            this.UI1=true
+            break;
+            case 'g1_identification_file2':
+              // Code specific to the "identification card" file type for individuals
+              this.UI2=true;
+              break;
+              case 'g2_identification_file1':
+                // Code specific to the "identification card" file type for individuals
+                this.UI3=true;
+                break;
+                case 'g2_identification_file2':
+                  // Code specific to the "identification card" file type for individuals
+                  this.UI4=true
+                  break;
+            }
     let file = e.target.files[0];
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
@@ -114,23 +138,28 @@ LoanForm: FormGroup;
         switch (type) {
           case 'g1_identification_file1':
             // Code specific to the "identification card" file type for individuals
-        
             this.g1_uploadedIdentificationDocumentFile1 =environment.baseUrl + '/file/get/' + this.g1_IdentificationDocumentFile1 ;
+            this.UI1=false;
             break;
             case 'g1_identification_file2':
             // Code specific to the "identification card" file type for individuals
         
             this.g1_uploadedIdentificationDocumentFile2 =environment.baseUrl + '/file/get/' + this.g1_IdentificationDocumentFile2 ;
+            this.UI2=false;
+
             break;
             case 'g2_identification_file1':
             // Code specific to the "identification card" file type for individuals
-        
             this.g2_uploadedIdentificationDocumentFile1 =environment.baseUrl + '/file/get/' + this.g2_IdentificationDocumentFile1 ;
+            this.UI3=false;
+
             break;
             case 'g2_identification_file2':
             // Code specific to the "identification card" file type for individuals
         
             this.g2_uploadedIdentificationDocumentFile2 =environment.baseUrl + '/file/get/' + this.g2_IdentificationDocumentFile2 ;
+            this.UI4=false;
+
             break;
           // case 'avatar':
           //   // Code specific to the "profile picture" file type for individuals
@@ -150,7 +179,14 @@ LoanForm: FormGroup;
     
   }
 
-  submit(){
+  submit($success, $danger){
+    
+    if(this.LoanForm.invalid){
+      this.spinner.hide()
+      this.showDanger($danger);
+      return;
+    }
+    
     const baseUrlLength = (environment.baseUrl + '/file/get/').length;
  this.g1_IdentificationDocumentFile1 = this.g1_uploadedIdentificationDocumentFile1.slice(
     baseUrlLength,
@@ -171,7 +207,7 @@ LoanForm: FormGroup;
     baseUrlLength,
     this.g2_uploadedIdentificationDocumentFile2.length
   );
-  
+
     const formData={
       loan_amount: this.LoanForm.value.loan_amount,
       has_loan: 'yes',
@@ -199,6 +235,7 @@ LoanForm: FormGroup;
     .subscribe({
       next: (response) => {
         console.log('registration uploaded succesful', response)
+        this.showSuccess($success)
         this.router.navigate([`/guest-dashboard`])
         
       },
@@ -216,7 +253,7 @@ const formData2 = {
 this._http.post(`${environment.baseUrl}/user/loan`, formData2)
     .subscribe({
       next: (response) => {
-       
+       this.showSuccess($success)
         console.log('Loan Added', response)
          
       },

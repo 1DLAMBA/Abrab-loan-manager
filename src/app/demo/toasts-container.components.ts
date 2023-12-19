@@ -28,6 +28,7 @@ import { NgForOf } from '@angular/common'; // Import NgForOf
 export class ToastsContainer {
     constructor(public toastService: ToastService) {}
     trackById(index: number, item: any): any {
+      
         return item.id; // Replace with your unique identifier for each toast
       }
 }

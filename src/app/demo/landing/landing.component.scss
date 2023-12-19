@@ -1,0 +1,117 @@
+h1{
+  
+  font-family:Gabarito;
+
+}
+.herosec{
+  display: flex;
+  flex-direction: column;
+}
+.aboutsec{
+  display: flex;
+  flex-direction: column;
+  z-index: -1;
+  color: black !important;
+  margin-top: 0px;
+  background-color: rgba(255, 255, 255, 0.675);
+
+}
+.text-muted{
+  color: rgb(255, 255, 255) !important;
+  text-shadow: 0 0 3px #0287595a, 0 0 5px #525252;
+
+}
+.sub{
+  justify-content: space-between !important;
+margin: auto;
+}
+.letter{
+  color:black;
+  font-size: 1rem;
+}
+
+.foothold .buttons{
+  vertical-align: baseline;
+}
+.headhold{
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+
+}
+
+.buttons small{
+  text-align: right;
+  color: black !important;
+  font-size: 0.6rem;
+}
+
+@media  (min-width: 480px) {
+  .buttons small{
+  
+    font-size: 0.9rem;
+  }
+  .foothold{
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    border-top:1px solid #52525239;
+  }
+}
+@media  (max-width: 479px){
+  .aboutsec{
+    margin-top: 50px;
+  }
+}
+
+.foothold{
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+    bottom: 0;
+  border-top:1px solid #52525239;
+}
+.foothold h1{
+  font-size: 0.7rem;
+  text-align: left;
+
+}
+.aboutfoothold h1{
+  font-size: 2rem;
+
+
+}
+
+h1 small{
+  font-size:0.8rem
+}
+body{
+    background-image: url('../../../assets/images/AbrabLogo2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+.sub-context{
+  background-color: #9bc8b274;
+  padding: 10px;
+  border-radius: 10px;
+}
+ .sub-context h5{
+  border-bottom: 0.7px solid rgba(128, 128, 128, 0.449);
+ }
+.containerr{
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.729);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter:blur(3px);
+    animation-iteration-count: infinite;
+    animation-name: example;
+  animation-duration: 10s;
+}
+@keyframes example {
+    50%   {background-color: rgb(251, 245, 245);}
+    
+    50% {background-color: rgba(164, 200, 164, 0.434);}
+  }

@@ -5,8 +5,10 @@ import { Router, ActivatedRoute,
   Route, } from '@angular/router';
   import { MessageService } from 'primeng/api';
   import { environment } from '../environment';
+  
   import { HttpClient, HttpHeaders } from '@angular/common/http';
   import { ToastService } from '../toast.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -20,6 +22,7 @@ RegistrationForm: FormGroup;
 toastService = inject(ToastService);
 successTpl:TemplateRef<any>;
 phase1:boolean=true;
+UI1:boolean=false;
 phase2:boolean = false;
 phase3: boolean = false;
 loader: boolean = false;
@@ -31,6 +34,7 @@ img: boolean = true;
   uploadedIdentificationDocumentFile2: any;
   IdentificationDocumentFile1: any;
   IdentificationDocumentFile2: any;
+  UI2: boolean;
 
   showStandard(template: TemplateRef<any>) {
 		this.toastService.show({ template,  message:'' });
@@ -63,8 +67,8 @@ constructor(
   private readonly router: Router,
   private route: ActivatedRoute,
   private _http:HttpClient,
-  private messageService: MessageService
-
+  private messageService: MessageService,
+  private spinner: NgxSpinnerService
 ){
 this.RegistrationForm = this.fb.group({
   name: this.fb.control('', [Validators.required]),
@@ -86,7 +90,11 @@ this.RegistrationForm = this.fb.group({
 }
 
 submit($success, $danger){
+  this.spinner.show();
+
   if(this.RegistrationForm.invalid){
+  this.spinner.hide();
+
     this.showDanger($danger);
   }
   
@@ -125,6 +133,7 @@ submit($success, $danger){
     this._http.post(`${environment.baseUrl}/user/register`, formData)
     .subscribe({
       next: (response) => {
+  this.spinner.hide();
         
         this.showSuccess($success)
         this.router.navigate(['/guest-login']);
@@ -144,7 +153,16 @@ handleFileUpload(e: any, type: string, $danger, $success) {
   const formData: FormData = new FormData();
   formData.append('file', file, file.name);
   formData.append('visibility', 'public');
-
+  switch (type) {
+    case 'identification_file1':
+      // Code specific to the "identification card" file type for individuals
+      this.UI1=true;
+      break;
+      case 'identification_file2':
+      // Code specific to the "identification card" file type for individuals
+      this.UI2=true;
+      break;
+  }
   this._http.post(`${environment.baseUrl}/upload`,formData).subscribe({
     next: (res: any) => {
       const file = res.data;
@@ -172,6 +190,7 @@ handleFileUpload(e: any, type: string, $danger, $success) {
       switch (type) {
         case 'identification_file1':
           this.showSuccess($success)
+          this.UI1=false;
 
           // Code specific to the "identification card" file type for individuals
       
@@ -179,6 +198,7 @@ handleFileUpload(e: any, type: string, $danger, $success) {
           break;
           case 'identification_file2':
           this.showSuccess($success)
+          this.UI2=false;
 
           // Code specific to the "identification card" file type for individuals
       
@@ -198,6 +218,10 @@ handleFileUpload(e: any, type: string, $danger, $success) {
     },
     error: (error) => {
       this.showDanger($danger)
+      this.loader=false;
+      this.UI2=false;
+      this.UI1=false;
+
     },
   });
   
@@ -220,5 +244,9 @@ validateFile(fileName: string) {
     return file;
   }
   return '';
+}
+back(){
+  this.phase2=false;
+  this.phase1=true;
 }
 }

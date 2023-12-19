@@ -41,6 +41,9 @@ export default class DashboardComponent implements OnInit {
   loanedamount: string;
   totalinterest: any;
   loanedpercent: any;
+  rejected: any;
+  paidamount: any;
+  test: number;
   constructor(
 
     private _http:HttpClient,
@@ -82,8 +85,10 @@ export default class DashboardComponent implements OnInit {
       this.loanedamount = response.loaned.toLocaleString();
       this.totalinterest = response.loaninterest.toLocaleString();
       this.user = response.users.filter((user: any) => !user.approved);
+      this.rejected = response.users.filter((user: any) => user.approved=='rejected').length;
+      this.paidamount = response.loanpaid;
+       
       this.loanedpercent = (response.loanpaid / response.loaned) * 100; 
-      console.log(this.loanedpercent);
       this.alluser =response.users.length
       this.approved=response.users.filter((user: any) => user.approved).length;
       
@@ -93,6 +98,13 @@ export default class DashboardComponent implements OnInit {
 
   open(content: any) {
     this.modalService.open(content, { size: 'lg' });
+  }
+  reject($id){
+    this._http.get(`${environment.baseUrl}/user/reject/${$id}`)
+    .subscribe((response:any)=>{
+      window.alert('user rejected')
+      this.getRegisteredUsers();
+    })
   }
   ngOnInit() {
     this.avatar_file = environment.baseUrl + '/file/get/';
@@ -316,35 +328,34 @@ compute(){
       title: 'Approved Borrowers',
       icon: 'icon-user-check text-c-green',
       amount: this.approved,
-      design: 'col-md-6',
+      design: 'col-md-12',
     },
     {
       title: 'Rejected Borrowers',
       icon: 'icon-user-x text-c-red',
-      amount: '2',
+      amount: this.rejected,
       design: 'col-md-12',
     },
     {
       title: 'Total Loaned',
       amount: '₦ '+ this.loanedamount,
-      percentage: this.loanedpercent + '%',
+      percentage: Math.round(this.loanedpercent) + '%',
       progress: this.loanedpercent,
       design: 'col-md-12',
     },
     {
-      title: 'Total Interest',
+      title: 'Total applied loan',
       amount: '₦ '+ this.totalinterest,
-      percentage: '80%',
-      progress: 70,
+      progress: false,
       design: 'col-md-12',
     },
     {
       title: 'Total Paid',
-      amount: '₦63,223,100',
-      percentage: '80%',
-      progress: 70,
+      amount: '₦ '+ this.paidamount,
+   
       design: 'col-md-12',
     },
+
   ];
 }
 
