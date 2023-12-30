@@ -3,7 +3,9 @@
   }
 
 .headhold{
- 
+ position: fixed;
+ top: 0px;
+ z-index: 2;
   background-color: white;
 }
 .foothold{
@@ -17,6 +19,38 @@
   font-size: 0.7rem;
   text-align: left;
 
+}
+.auth-wrapper .auth-content{
+ 
+}
+@media (min-width:600px){
+  .auth-wrapper .auth-content {
+    width: 800px;
+    margin-top: 5%;
+    
+  }
+  .phase1{
+    width: 300px
+  }
+
+  .profile-photo{
+    display: flex;
+    flex-direction: column;
+  }
+  
+}
+@media (max-width:599px){
+  .phase1{
+    width: 100%;
+  }
+  .auth-wrapper .auth-content{
+    margin-top: 15%;
+  }
+}
+
+
+.card-body{
+  margin: 30px;
 }
 
 h1 small{

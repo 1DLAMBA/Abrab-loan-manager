@@ -12,6 +12,8 @@
     <div class="auth-content">
       <div class="auth-bg">
         <span class="r"></span>
+       
+        
         <span class="r s"></span>
         <span class="r s"></span>
         <span class="r"></span>
@@ -22,10 +24,10 @@
          </div>
          <button *ngIf="phase2" (click)="back()" class="btn btn-dark feather icon-arrow-left col-3" ></button>
         <form class="" [formGroup]="RegistrationForm">
-        <div class="card-body text-center">
+        <div class="card-body gap-5 justify-content-center text-center d-flex flex-wrap">
           <div class="mb-4">
             <img class="auth-icon" alt="" width="100" src="../../../assets/images/AbrabLogo.png">
-          </div>
+          
           <ng-template #standardTpl> I'm a standard toast </ng-template>
 
           <ng-template #filefail Tpl> Upload Failed or file too large </ng-template>
@@ -39,10 +41,10 @@
           </ng-template>
           <app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
           
-          <div *ngIf="phase1">
+          
             
           <h3 class="mb-4">Sign up</h3>
-          <div class="h-full flex flex-column surface-card" style="border-radius: 6px">
+          <div class="h-full profile-photo surface-card" style="border-radius: 6px">
             <div class="deep-green-font font-bold mb-2">
               Profile Picture
             </div>
@@ -59,12 +61,14 @@
                 height: auto;
               "
               class="border rounded shadow-sm p-25 img-fix-h img-fit img-fluid mb-2 p-link shadow-2 w-full"
-              [src]="uploadedAvatarFile" onError="this.src='../../../assets/images/user/avatar-2.jpg';"
+              [src]="uploadedAvatarFile" onError="this.src='../../../assets/images/icons8-user-80 (1).png';"
               alt="Avatar File" />
             <button pButton pRipple type="button" label="Upload Paasport" (click)="avatar.click()"
               class="p-3 w-full mt-auto p-button-primary p-button-raised"></button>
             <input type="file" #avatar name="AvatarUpload" id="AvatarUpload" hidden accept="image/jpg,image/jpeg,image/png" maxFileSize="2048" (change)="handleFileUpload($event, 'avatar', filefail, filesuccess)" />
           </div>
+        </div>
+          <div *ngIf="phase1" class="phase1">
 
           <div class="input-group mb-3">
             <input formControlName="name" name="name" type="text" class="form-control" placeholder="Full Name" />
@@ -103,12 +107,14 @@
           </div>
           <!-- phsae 2 -->
           <div *ngIf="phase2" >
-            <h3 class="mb-4">Sign up</h3>
+            
             <small>Id 1</small>
-            <div style="justify-content: space-between;" class="input-group mb-3">
-              <input type="radio" formControlName="identification_type" name="identification_type" value="nin" placeholder="Identification Number" />NIN<br>
-              <input type="radio" formControlName="identification_type" name="identification_type" value="voters card" placeholder="Identification Number" />Voter's card
+            <div style="justify-content: space-between;" class="border border-radius rounded-1 mb-3">
+              <small>Regualatory ID</small><br>
+              <input type="radio" formControlName="identification_type" name="identification_type" value="NIN" placeholder="Identification Number" />NIN
+              <input type="radio" formControlName="identification_type" name="identification_type" value="voters card" placeholder="Identification Number" />Voter's card<br>
               <input type="radio" formControlName="identification_type" name="identification_type" value="Drivers License" placeholder="Identification Number" /> Driver's License
+              <input type="radio" formControlName="identification_type" name="identification_type" value="International passport" placeholder="Identification Number" /> International Passport
 
             </div>
             <div class="input-group mb-3">
@@ -120,24 +126,16 @@
             <input type="file" #identification1 name="identification_file1" id="identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf" maxFileSize="2048" (change)="handleFileUpload($event, 'identification_file1', filefail, filesuccess)" />
           
             </div>
-            <small>Another National Id or Work Place ID</small>
-            <div style="justify-content: space-around;" class="input-group mb-3">
-              <span>
-              <label for="nin">NIN</label>
-              <input formControlName="identification_type2"  id="nin" type="radio" name="identification_type2" value="nin"  />
-              </span> 
-              <span>
-              <label for="v_card">Voter's card</label>
-              <input formControlName="identification_type2"  id="v_card" type="radio"  name="identification_type2" value="voters card"/>
-              </span>
-              <span>
-              <label for="drivers_license"> Driver's License</label>
-              <input formControlName="identification_type2"  id="drivers_license" type="radio"  name="identification_type2" value="drivers license" />
-              </span>
-              <span>
+            <div style="justify-content: space-around;" class="border border-radius rounded-1 mb-3">
+              <small>Work Place ID or Other ID</small><br>
+              <span class="m-2">
               <label for="workplace_id"> WorkPlace Id</label>
               <input formControlName="identification_type2"  id="workplace_id" type="radio"  name="identification_type2" value="workplace id"/>
               </span>
+              <span class="m-2">
+                <label for="other"> Others</label>
+                <input formControlName="identification_type2"  id="other" type="radio"  name="identification_type2" value="Other" />
+                </span>
             </div>
             <div class="input-group mb-3">
               <input formControlName="identification_number2" name="identification_number2" type="text" class="form-control" placeholder="Identification Number" />
