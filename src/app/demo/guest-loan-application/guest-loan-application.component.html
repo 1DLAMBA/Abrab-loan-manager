@@ -1,3 +1,12 @@
+<div class="d-flex headhold  shadow-sm container-fluid p-2 ">
+  <div class="text d-flex col-9" >
+    <a routerLink="../../guest-dashboard" class="d-flex">
+      <img src="../../../assets/images/AbrabLogo2.png" width="45px" class="rounded-circle" alt="">
+      <h1 class=" bg-opacity-10 align-self-center fs-6">ABRAB NIGERIA LIMITED<br><small>RC NO:1870243</small></h1>
+    </a>
+</div>
+ 
+</div>
 <div class=" auth-wrapper">
     <div class="auth-content">
       <div class="auth-bg">
@@ -63,10 +72,12 @@
           <div class="input-group mb-3">
             <input type="text" formControlName="guarantor1_address" name="guarantor1_address" class="form-control" placeholder="Guarantor address" />
           </div>
-          <div style="justify-content: space-between;" class="input-group mb-3">
-            <input type="radio" formControlName="guarantor1_identification_type1"   name="guarantor1_identification_type1" value="NIN" placeholder="Identification Number" />NIN<br>
-            <input type="radio" formControlName="guarantor1_identification_type1"  name="guarantor1_identification_type1" value="Voter's card" placeholder="Identification Number" />Voter's card
+          <div style="justify-content: space-between; " class=" border rounded-2 mb-3">
+            <small>Regulatory ID</small><br>
+            <input type="radio" formControlName="guarantor1_identification_type1"   name="guarantor1_identification_type1" value="NIN" placeholder="Identification Number" />NIN
+            <input type="radio" formControlName="guarantor1_identification_type1"  name="guarantor1_identification_type1" value="Voter's card" placeholder="Identification Number" />Voter's card<br>
             <input type="radio" formControlName="guarantor1_identification_type1"  name="guarantor1_identification_type1" value="Drivers License" placeholder="Identification Number" /> Driver's License
+            <input type="radio" formControlName="guarantor1_identification_type1"  name="guarantor1_identification_type1" value="International Passport" placeholder="Identification Number" /> International Passport
 
           </div>
           <div class="input-group mb-3">
@@ -78,23 +89,16 @@
             <input type="file" #g1_identification1 name="guarantor1_identification_file1" id="guarantor1_identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf" maxFileSize="2048" (change)="handleFileUpload($event, 'g1_identification_file1', successTpl, dangerTpl)" />
             
           </div>
-          <small>Another National Id or Work Place ID</small>
-            <div style="justify-content: space-around;" class="input-group mb-3">
-              <span>
-              <label for="nin">NIN</label>
-              <input id="nin" formControlName="guarantor1_identification_type2"  type="radio" name="guarantor1_identification_type2" value="NIN"  />
-              </span> 
-              <span>
-              <label for="v_card">Voter's card</label>
-              <input id="v_card" formControlName="guarantor1_identification_type2"  type="radio"  name="guarantor1_identification_type2" value="Voter's card"/>
-              </span>
-              <span>
-              <label for="drivers_license"> Driver's License</label>
-              <input id="drivers_license" formControlName="guarantor1_identification_type2" type="radio"  name="guarantor1_identification_type2" value="Driver's license" />
-              </span>
-              <span>
+          <div style="justify-content: space-around;" class=" gap-4 border rounded-2 mb-3">
+            <small>Work Place ID or Other</small><br>
+              <span class="m-3">
               <label for="workplace_id"> WorkPlace Id</label>
               <input id="workplace_id" formControlName="guarantor1_identification_type2" type="radio"  name="guarantor1_identification_type2" value="Workplace ID"/>
+              </span>
+
+              <span class="m-3">
+              <label for="other"> Other</label>
+              <input id="other" formControlName="guarantor1_identification_type2" type="radio"  name="guarantor1_identification_type2" value="Other Identification"/>
               </span>
             </div>
           <div class="input-group mb-3">
@@ -119,10 +123,12 @@
           <div class="input-group mb-3">
             <input type="text" formControlName="guarantor2_address" name="guarantor2_address" class="form-control" placeholder="2nd Guarantor address" />
           </div>
-          <div style="justify-content: space-between;" class="input-group mb-3">
-            <input type="radio" formControlName="guarantor2_identification_type1" name="guarantor2_identification_type1" value="NIN" placeholder="Identification Number" />NIN<br>
-            <input type="radio" formControlName="guarantor2_identification_type1" name="guarantor2_identification_type1" value="Voter's card" placeholder="Identification Number" />Voter's card
+          <div style="justify-content: space-between;" class="border rounded-2 mb-3">
+            <small>Regulatory ID</small><br>
+            <input type="radio" formControlName="guarantor2_identification_type1" name="guarantor2_identification_type1" value="NIN" placeholder="Identification Number" />NIN
+            <input type="radio" formControlName="guarantor2_identification_type1" name="guarantor2_identification_type1" value="Voter's card" placeholder="Identification Number" />Voter's card<br>
             <input type="radio" formControlName="guarantor2_identification_type1" name="guarantor2_identification_type1" value="Drivers license" placeholder="Identification Number" /> Driver's License
+            <input type="radio" formControlName="guarantor2_identification_type1" name="guarantor2_identification_type1" value="International Passport" placeholder="Identification Number" />International Passport
 
           </div>
           <div class="input-group mb-3">
@@ -133,24 +139,16 @@
             class="p-3 w-full mt-auto p-button-primary p-button-raised"><span class="spinner-border spinner-border-sm" *ngIf="UI3" role="status" aria-hidden="true"></span>&nbsp;&nbsp;Upload Identification File</button>
           <input type="file" #g2_identification1 name="guarantor2_identification_file1" id="guarantor2_identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf" maxFileSize="2048" (change)="handleFileUpload($event, 'g2_identification_file1',  successTpl, dangerTpl)" />
            </div>
-          <small>Another National Id or Work Place ID</small>
-          <div style="justify-content: space-around;" class="input-group mb-3">
-            <span>
-            <label for="nin">NIN</label>
-            <input id="nin" formControlName="guarantor2_identification_type2" type="radio" name="guarantor2_identification_type2" value="NIN"  />
-            </span> 
-            <span>
-            <label for="v_card">Voter's card</label>
-            <input id="v_card" formControlName="guarantor2_identification_type2" type="radio"  name="guarantor2_identification_type2" value="Voter's card"/>
-            </span>
-            <span>
-            <label for="drivers_license"> Driver's License</label>
-            <input id="drivers_license" formControlName="guarantor2_identification_type2" type="radio"  name="guarantor2_identification_type2" value="Driver's License" />
-            </span>
-            <span>
+           <div style="justify-content: space-around;" class="border rounded-2 mb-3">
+            <small>WorkPlace ID or Other</small><br>     
+            <span class="m-3">
             <label for="workplace_id"> WorkPlace Id</label>
             <input id="workplace_id" formControlName="guarantor2_identification_type2" type="radio"  name="guarantor2_identification_type2" value="Workplace ID"/>
             </span>
+            <span class="m-3">
+              <label for="drivers_license"> Other</label>
+              <input id="drivers_license" formControlName="guarantor2_identification_type2" type="radio"  name="guarantor2_identification_type2" value="Other" />
+              </span>
           </div>
           <div class="input-group mb-3">
             <input type="text" formControlName="guarantor2_identification2" name="guarantor2_identification2" class="form-control" placeholder="2nd Guarantor Identification number 2" />
