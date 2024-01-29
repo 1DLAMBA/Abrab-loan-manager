@@ -94,7 +94,7 @@ print(){
   }
 
   proceed(){
-    if(this.user.has_loan){
+    if(this.user.loan_amount){
       window.alert('You have a loan already')
       return;
     }

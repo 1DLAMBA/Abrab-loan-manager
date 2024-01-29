@@ -1,6 +1,6 @@
 <div class="row">
 
- 
+ <p-toast></p-toast>
   <div *ngIf="pending" class="col-xl-12">
     <app-card
       cardTitle="Pending Loans"
@@ -41,6 +41,8 @@
       </div>
     </app-card>
   </div>
+
+  
   <ng-template #myModalContent centered let-modal>
       
     <div *ngIf="loader" class=" text-center spinner-grow .section-header" role="status">
@@ -53,7 +55,12 @@
       </div>
       <div class="modal-header">
       <img width="150px" src="{{ avatar_file + oneuser.passport }}">
-      <button type="button" class="feather icon-check-circle btn btn-info btn-outline-success" value="Approve" aria-label="Close" (click)="activate(oneuser.id)">Approve</button>
+      <form [formGroup]="adminform" >
+        <div class="input-group mb-3">
+          <input type="text" name="admin_charges" formControlName="admin_charges" class="form-control" placeholder="Administrative Charges" />
+        </div>
+      </form>
+      <button type="button" class="feather icon-check-circle btn btn-info btn-outline-success" value="Approve" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="activate(oneuser.id)">Approve</button>
     </div>
     <h3  class="modal-body section-header">Personal Details</h3>
       <div class="modal-body row flex">
@@ -405,6 +412,10 @@
 
   </div>
   <h3  class="modal-body section-header">Personal Details</h3>
+  <span *ngIf="activeloan.active" class="badge bg-success mb-1">Paid: ₦ {{activeloan.loans.amount_paid_so_far |
+    number:'1.2-2'}}</span>
+  <span *ngIf="activeloan.active" class="badge bg-warning text-dark">Outstanding: ₦ {{activeloan.loans.outstanding |
+    number:'1.2-2'}}</span>
     <div class="modal-body row flex">
     <div class="col-6">
       <p>Name:{{activeloan.name}}</p>
@@ -534,12 +545,13 @@
       </div>
      </div>
    </div>
+   <button class="btn btn-outline-danger" (click)="terminate(activeloan.id)">Terminate Loan</button>
   </div>
 </div>
 
 <div *ngIf="acceptance"  id="registration" class="letter p-5">
   <button type="button" class="btn-close" aria-label="Close" (click)="closeacceptance()"></button>
-  <button type="button" id="print"  class="feather icon-printer btn btn-outline-success" aria-label="Close" ></button>
+  <button type="button" id="print"  class="feather no-print icon-printer btn btn-outline-success" (click)="print()" aria-label="Close" ></button>
 
   <div class="modal-header">
     <img width="150px" src="../../../../../assets/images/AbrabLogo.png" alt="">
@@ -553,12 +565,12 @@
   </div>
   <div class="row col-12">
     <div class="col-9">
-      <p>Contact Address: Opposite Michael Block Industry opposite Kosa Kosa filling Station. Lambata Niger State</p><br>
+      <p>Contact Address: Opposite Michael Block Industry opposite Kosa Kosa filling Station. Lambata Niger State</p>
     </div>
-    <div class="col-6">
+    <div class="col-12">
       <p>Phone: 0814 585 6651 </p>
     </div>
-    <div class="col-6">
+    <div class="col-12">
       Email: abrabnigerialtd@gmail.com
     </div>
     <div class="col-12 text-center">
@@ -584,7 +596,7 @@
       <u>ACCEPTANCE OF ₦{{activeloan.loans.loan_amount}} LOAN DISBURSEMENT IN {{activeloan.guarantor1_address}} ({{activeloan.phoneno}})</u>
     </div>
     <div class="col-12">
-      We write to inform you that your business loan of =N=3,000,000 will be disburse on 6TH DECEMBER 2023 to the account you provided below; 
+      We write to inform you that your business loan of ₦{{activeloan.loans.loan_amount}} will be disburse to the account you provided below; 
     </div>
     <div class="col-12">
       <div class="col-3">
@@ -598,11 +610,12 @@
       </div>
     </div>
     <div class="col-12 mb-3">
-      The loan attracts ₦{{activeloan.loans.interest}} @3.5% of monthly interest rate, application form and administrative charge #4,000 which shall be repaid along with the principal within the agreed period.  
+      The loan attracts ₦{{activeloan.loans.interest}} @3.5% of monthly interest rate, application form and administrative charge of ₦2,000 which shall be repaid along with the principal within the agreed period.  
     </div>
     <div class="col-12 mb-3">
       The mode of repayment shall be as follows:<br>
-      Amount: ₦{{activeloan.loans.loan_amount | number: '1.2-2'}}&nbsp;&nbsp; Installment(months): {{activeloan.loans.loan_period}}&nbsp;&nbsp;Interest:₦{{activeloan.loans.interest | number: '1.2-2'}}<br>
+      Principal: ₦{{activeloan.loans.loan_amount | number: '1.2-2'}}&nbsp;&nbsp; Period of Installment: {{activeloan.loans.loan_period}} Months&nbsp;&nbsp;<br>
+      Total Interest:₦{{activeloan.loans.interest | number: '1.2-2'}}<br>
       Monthly Interest: ₦ {{activeloan.loans.monthly_interest | number: '1.2-2'}}<br>
       Monthly Payment without interest: ₦ {{activeloan.loans.monthly_payment_without_interest | number: '1.2-2'}}<br>
       Total Monthly Payment: ₦ {{activeloan.loans.monthly_payment_with_interest | number: '1.2-2'}}<br>
@@ -618,15 +631,19 @@
     <div class="col-12">Thanks for your cooperation.</div>
     <div class="col-12 mb-3">Kind Regards,</div>
     <div class="col-12 d-flex flex-wrap mt-3 gap-5">
-      <div class="col-lg-3 border-top">
-      For: Abrab Nigeria Limited</div>
-      <div class="col-lg-2 border-top">
+      <div class=" col-lg-3 abrab-head">
+        <img src="../../../../../assets/images/stamp.png" width="250px" alt="">
+        <img style="position: absolute; left:150px; opacity: 0.6; bottom:100px;" src="../../../../../assets/images/CamScanner 01-15-2024 09.32_1.jpg" width="100px" alt="">
+        <div class=" border-top">
+        For: Abrab Nigeria Limited</div>
+      </div>
+      <div class="col-lg-2 border-top mt-5">
        {{activeloan.name}}
       </div>
-      <div class="col-lg-2 border-top"> 
+      <div class="col-lg-2 border-top mt-5"> 
       {{activeloan.guarantor1_name}}
     </div>
-    <div class="col-lg-2 border-top">
+    <div class="col-lg-2 border-top mt-5">
        {{activeloan.guarantor2_name}}
       </div>
     </div>

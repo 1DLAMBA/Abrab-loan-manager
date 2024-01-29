@@ -1,43 +1,43 @@
 <div class="d-flex headhold  shadow-sm container-fluid p-2 ">
-  <div class="text d-flex col-9" >
+  <div class="text d-flex col-9">
     <a routerLink="../../guest-dashboard" class="d-flex">
       <img src="../../../assets/images/AbrabLogo2.png" width="45px" class="rounded-circle" alt="">
       <h1 class=" bg-opacity-10 align-self-center fs-6">ABRAB NIGERIA LIMITED<br><small>RC NO:1870243</small></h1>
     </a>
-</div>
- 
+  </div>
+
 </div>
 <div class=" auth-wrapper">
-    <div class="auth-content">
-      <div class="auth-bg">
-        <span class="r"></span>
-        <span class="r s"></span>
-        <span class="r s"></span>
-        <span class="r"></span>
-      </div>
-      <div class=" card">
-        <div class="card-body text-center">
-          <div *ngIf="loan2" class="col-3">
-            <button (click)="back()" class=" btn btn-dark feather icon-arrow-left"></button>
-          </div>
-          <form [formGroup]="LoanForm">
+  <div class="auth-content">
+    <div class="auth-bg">
+      <span class="r"></span>
+      <span class="r s"></span>
+      <span class="r s"></span>
+      <span class="r"></span>
+    </div>
+    <div *ngIf="!activeloan.has_loan" class=" card">
+      <div class="card-body text-center">
+        <div *ngIf="loan2" class="col-3">
+          <button (click)="back()" class=" btn btn-dark feather icon-arrow-left"></button>
+        </div>
+        <form [formGroup]="LoanForm">
           <div class="mb-4">
-            <img  width="100px" src="../../../assets/images/AbrabLogo.png">
+            <img width="100px" src="../../../assets/images/AbrabLogo.png">
           </div>
-          
+
 
           <ng-template #standardTpl> Loan Submitted </ng-template>
           <ng-template #loanfailTpl> Error, please review form </ng-template>
 
           <ng-template #successTpl> File Uploaded </ng-template>
-          
+
           <ng-template #dangerTpl>
-            
+
             Upload Failed
           </ng-template>
-          
+
           <!-- <p>Please click one of the button to see a Toast being displayed in the top right corner of your screen:</p> -->
-          
+
           <!-- <div class="buttons">
             <button class="btn btn-primary" (click)="showStandard(standardTpl)" ngbTooltip="Will disappear in 5s"
               >Standard toast</button
@@ -48,127 +48,193 @@
             <button class="btn btn-danger" (click)="showDanger(dangerTpl)" ngbTooltip="Will disappear in 15s">Danger toast</button
             >&nbsp;
           </div> -->
-          
+
           <app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
 
 
           <h3 class="mb-4">Kindly fill Details to apply for loan</h3>
           <div class="input-group mb-3">
-            <input type="text" formControlName="loan_amount" name="loan_amount" class="form-control" placeholder="Loan Amount" />
+            <input type="text" formControlName="loan_amount" name="loan_amount" class="form-control"
+              placeholder="Loan Amount" />
           </div>
           <div class="input-group mb-3">
-            <input type="number" formControlName="installment_period" name="installment_period" class="form-control" placeholder="Installment Period (MONTHS)" />
+            <input type="number" formControlName="installment_period" name="installment_period" class="form-control"
+              placeholder="Installment Period (MONTHS)" />
           </div>
           <h5 class="mb-2">Set Guarantors</h5>
           <hr>
           <div *ngIf="loan1">
-          <p class="mb-4 fs-12">Set First Guarantor</p>
-          <div class="input-group mb-3">
-            <input type="text" formControlName="guarantor1_name" name="guarantor1_name" class="form-control" placeholder="Guarantor name" />
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" formControlName="guarantor1_phoneno" name="guarantor1_phoneno" class="form-control" placeholder="Guarantor phoneno" />
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" formControlName="guarantor1_address" name="guarantor1_address" class="form-control" placeholder="Guarantor address" />
-          </div>
-          <div style="justify-content: space-between; " class=" border rounded-2 mb-3">
-            <small>Regulatory ID</small><br>
-            <input type="radio" formControlName="guarantor1_identification_type1"   name="guarantor1_identification_type1" value="NIN" placeholder="Identification Number" />NIN
-            <input type="radio" formControlName="guarantor1_identification_type1"  name="guarantor1_identification_type1" value="Voter's card" placeholder="Identification Number" />Voter's card<br>
-            <input type="radio" formControlName="guarantor1_identification_type1"  name="guarantor1_identification_type1" value="Drivers License" placeholder="Identification Number" /> Driver's License
-            <input type="radio" formControlName="guarantor1_identification_type1"  name="guarantor1_identification_type1" value="International Passport" placeholder="Identification Number" /> International Passport
+            <p class="mb-4 fs-12">Set First Guarantor</p>
+            <div class="input-group mb-3">
+              <input type="text" formControlName="guarantor1_name" name="guarantor1_name" class="form-control"
+                placeholder="Guarantor name" />
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" formControlName="guarantor1_phoneno" name="guarantor1_phoneno" class="form-control"
+                placeholder="Guarantor phoneno" />
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" formControlName="guarantor1_address" name="guarantor1_address" class="form-control"
+                placeholder="Guarantor address" />
+            </div>
+            <div style="justify-content: space-between; " class=" border rounded-2 mb-3">
+              <small>Regulatory ID</small><br>
+              <input type="radio" formControlName="guarantor1_identification_type1"
+                name="guarantor1_identification_type1" value="NIN" placeholder="Identification Number" />NIN
+              <input type="radio" formControlName="guarantor1_identification_type1"
+                name="guarantor1_identification_type1" value="Voter's card"
+                placeholder="Identification Number" />Voter's card<br>
+              <input type="radio" formControlName="guarantor1_identification_type1"
+                name="guarantor1_identification_type1" value="Drivers License" placeholder="Identification Number" />
+              Driver's License
+              <input type="radio" formControlName="guarantor1_identification_type1"
+                name="guarantor1_identification_type1" value="International Passport"
+                placeholder="Identification Number" /> International Passport
 
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" formControlName="guarantor1_identification1"  class="form-control" name="guarantor1_identification1" placeholder="Guarantor Identification number 1" />
-          </div>
-          <div class=" mb-3">
-            <button pButton class="p-button p-button-outlined" pRipple type="button"  (click)="g1_identification1.click()" 
-              class="p-3 w-full mt-auto p-button-primary p-button-raised"><span class="spinner-border spinner-border-sm" *ngIf="UI1" role="status" aria-hidden="true"></span>&nbsp;&nbsp;Upload Identification File</button>
-            <input type="file" #g1_identification1 name="guarantor1_identification_file1" id="guarantor1_identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf" maxFileSize="2048" (change)="handleFileUpload($event, 'g1_identification_file1', successTpl, dangerTpl)" />
-            
-          </div>
-          <div style="justify-content: space-around;" class=" gap-4 border rounded-2 mb-3">
-            <small>Work Place ID or Other</small><br>
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" formControlName="guarantor1_identification1" class="form-control"
+                name="guarantor1_identification1" placeholder="Guarantor Identification number 1" />
+            </div>
+            <div class=" mb-3">
+              <button pButton class="p-button p-button-outlined" pRipple type="button"
+                (click)="g1_identification1.click()" class="p-3 w-full mt-auto p-button-primary p-button-raised"><span
+                  class="spinner-border spinner-border-sm" *ngIf="UI1" role="status"
+                  aria-hidden="true"></span>&nbsp;&nbsp;Upload Identification File</button>
+              <input type="file" #g1_identification1 name="guarantor1_identification_file1"
+                id="guarantor1_identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf"
+                maxFileSize="2048"
+                (change)="handleFileUpload($event, 'g1_identification_file1', successTpl, dangerTpl)" />
+
+            </div>
+            <div style="justify-content: space-around;" class=" gap-4 border rounded-2 mb-3">
+              <small>Work Place ID or Other</small><br>
               <span class="m-3">
-              <label for="workplace_id"> WorkPlace Id</label>
-              <input id="workplace_id" formControlName="guarantor1_identification_type2" type="radio"  name="guarantor1_identification_type2" value="Workplace ID"/>
+                <label for="workplace_id"> WorkPlace Id</label>
+                <input id="workplace_id" formControlName="guarantor1_identification_type2" type="radio"
+                  name="guarantor1_identification_type2" value="Workplace ID" />
               </span>
 
               <span class="m-3">
-              <label for="other"> Other</label>
-              <input id="other" formControlName="guarantor1_identification_type2" type="radio"  name="guarantor1_identification_type2" value="Other Identification"/>
+                <label for="other"> Other</label>
+                <input id="other" formControlName="guarantor1_identification_type2" type="radio"
+                  name="guarantor1_identification_type2" value="Other Identification" />
               </span>
             </div>
-          <div class="input-group mb-3">
-            <input type="text" formControlName="guarantor1_identification2" name="guarantor1_identification2" class="form-control" placeholder="Guarantor Identification number 2" />
-          </div>
-          <div class=" mb-3">
-            <button pButton class="p-button p-button-outlined" pRipple type="button"  (click)="g1_identification2.click()"
-              class="p-3 w-full mt-auto p-button-primary p-button-raised"><span class="spinner-border spinner-border-sm" *ngIf="UI2" role="status" aria-hidden="true"></span>&nbsp;&nbsp;Upload Identification File</button>
-            <input type="file" #g1_identification2 name="guarantor1_identification_file2" id="guarantor1_identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf" maxFileSize="2048" (change)="handleFileUpload($event, 'g1_identification_file2',  successTpl, dangerTpl)" />
-             </div>
-          <button (click)="next()" class="btn btn-dark feather icon-arrow-right"></button>
+            <div class="input-group mb-3">
+              <input type="text" formControlName="guarantor1_identification2" name="guarantor1_identification2"
+                class="form-control" placeholder="Guarantor Identification number 2" />
+            </div>
+            <div class=" mb-3">
+              <button pButton class="p-button p-button-outlined" pRipple type="button"
+                (click)="g1_identification2.click()" class="p-3 w-full mt-auto p-button-primary p-button-raised"><span
+                  class="spinner-border spinner-border-sm" *ngIf="UI2" role="status"
+                  aria-hidden="true"></span>&nbsp;&nbsp;Upload Identification File</button>
+              <input type="file" #g1_identification2 name="guarantor1_identification_file2"
+                id="guarantor1_identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf"
+                maxFileSize="2048"
+                (change)="handleFileUpload($event, 'g1_identification_file2',  successTpl, dangerTpl)" />
+            </div>
+            <button (click)="next()" class="btn btn-dark feather icon-arrow-right"></button>
           </div>
 
-          <div *ngIf="loan2"> 
-          <p class="mb-4 fs-12">Set Second Guarantor</p>
-          <div class="input-group mb-3">
-            <input type="text" formControlName="guarantor2_name" name="guarantor2_name"  class="form-control" placeholder="2nd Guarantor name" />
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" formControlName="guarantor2_phoneno" name="guarantor2_phoneno" class="form-control" placeholder="2nd Guarantor phoneno" />
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" formControlName="guarantor2_address" name="guarantor2_address" class="form-control" placeholder="2nd Guarantor address" />
-          </div>
-          <div style="justify-content: space-between;" class="border rounded-2 mb-3">
-            <small>Regulatory ID</small><br>
-            <input type="radio" formControlName="guarantor2_identification_type1" name="guarantor2_identification_type1" value="NIN" placeholder="Identification Number" />NIN
-            <input type="radio" formControlName="guarantor2_identification_type1" name="guarantor2_identification_type1" value="Voter's card" placeholder="Identification Number" />Voter's card<br>
-            <input type="radio" formControlName="guarantor2_identification_type1" name="guarantor2_identification_type1" value="Drivers license" placeholder="Identification Number" /> Driver's License
-            <input type="radio" formControlName="guarantor2_identification_type1" name="guarantor2_identification_type1" value="International Passport" placeholder="Identification Number" />International Passport
+          <div *ngIf="loan2">
+            <p class="mb-4 fs-12">Set Second Guarantor</p>
+            <div class="input-group mb-3">
+              <input type="text" formControlName="guarantor2_name" name="guarantor2_name" class="form-control"
+                placeholder="2nd Guarantor name" />
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" formControlName="guarantor2_phoneno" name="guarantor2_phoneno" class="form-control"
+                placeholder="2nd Guarantor phoneno" />
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" formControlName="guarantor2_address" name="guarantor2_address" class="form-control"
+                placeholder="2nd Guarantor address" />
+            </div>
+            <div style="justify-content: space-between;" class="border rounded-2 mb-3">
+              <small>Regulatory ID</small><br>
+              <input type="radio" formControlName="guarantor2_identification_type1"
+                name="guarantor2_identification_type1" value="NIN" placeholder="Identification Number" />NIN
+              <input type="radio" formControlName="guarantor2_identification_type1"
+                name="guarantor2_identification_type1" value="Voter's card"
+                placeholder="Identification Number" />Voter's card<br>
+              <input type="radio" formControlName="guarantor2_identification_type1"
+                name="guarantor2_identification_type1" value="Drivers license" placeholder="Identification Number" />
+              Driver's License
+              <input type="radio" formControlName="guarantor2_identification_type1"
+                name="guarantor2_identification_type1" value="International Passport"
+                placeholder="Identification Number" />International Passport
 
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" formControlName="guarantor2_identification1" name="guarantor2_identification1" class="form-control" placeholder="2nd Guarantor Identification number 1" />
-          </div>
-          <div class="mb-3">
-            <button pButton class="p-button p-button-outlined" pRipple type="button" (click)="g2_identification1.click()"
-            class="p-3 w-full mt-auto p-button-primary p-button-raised"><span class="spinner-border spinner-border-sm" *ngIf="UI3" role="status" aria-hidden="true"></span>&nbsp;&nbsp;Upload Identification File</button>
-          <input type="file" #g2_identification1 name="guarantor2_identification_file1" id="guarantor2_identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf" maxFileSize="2048" (change)="handleFileUpload($event, 'g2_identification_file1',  successTpl, dangerTpl)" />
-           </div>
-           <div style="justify-content: space-around;" class="border rounded-2 mb-3">
-            <small>WorkPlace ID or Other</small><br>     
-            <span class="m-3">
-            <label for="workplace_id"> WorkPlace Id</label>
-            <input id="workplace_id" formControlName="guarantor2_identification_type2" type="radio"  name="guarantor2_identification_type2" value="Workplace ID"/>
-            </span>
-            <span class="m-3">
-              <label for="drivers_license"> Other</label>
-              <input id="drivers_license" formControlName="guarantor2_identification_type2" type="radio"  name="guarantor2_identification_type2" value="Other" />
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" formControlName="guarantor2_identification1" name="guarantor2_identification1"
+                class="form-control" placeholder="2nd Guarantor Identification number 1" />
+            </div>
+            <div class="mb-3">
+              <button pButton class="p-button p-button-outlined" pRipple type="button"
+                (click)="g2_identification1.click()" class="p-3 w-full mt-auto p-button-primary p-button-raised"><span
+                  class="spinner-border spinner-border-sm" *ngIf="UI3" role="status"
+                  aria-hidden="true"></span>&nbsp;&nbsp;Upload Identification File</button>
+              <input type="file" #g2_identification1 name="guarantor2_identification_file1"
+                id="guarantor2_identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf"
+                maxFileSize="2048"
+                (change)="handleFileUpload($event, 'g2_identification_file1',  successTpl, dangerTpl)" />
+            </div>
+            <div style="justify-content: space-around;" class="border rounded-2 mb-3">
+              <small>WorkPlace ID or Other</small><br>
+              <span class="m-3">
+                <label for="workplace_id"> WorkPlace Id</label>
+                <input id="workplace_id" formControlName="guarantor2_identification_type2" type="radio"
+                  name="guarantor2_identification_type2" value="Workplace ID" />
               </span>
+              <span class="m-3">
+                <label for="drivers_license"> Other</label>
+                <input id="drivers_license" formControlName="guarantor2_identification_type2" type="radio"
+                  name="guarantor2_identification_type2" value="Other" />
+              </span>
+            </div>
+            <div class="input-group mb-3">
+              <input type="text" formControlName="guarantor2_identification2" name="guarantor2_identification2"
+                class="form-control" placeholder="2nd Guarantor Identification number 2" />
+            </div>
+            <div class=" mb-3">
+              <button pButton class="p-button p-button-outlined" pRipple type="button"
+                (click)="g2_identification2.click()" class="p-3 w-full mt-auto p-button-primary p-button-raised"><span
+                  class="spinner-border spinner-border-sm" *ngIf="UI4" role="status"
+                  aria-hidden="true"></span>&nbsp;&nbsp;Upload Identification File</button>
+              <input type="file" #g2_identification2 name="guarantor2_identification_file2"
+                id="guarantor1_identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf"
+                maxFileSize="2048"
+                (change)="handleFileUpload($event, 'g2_identification_file2',  successTpl, dangerTpl)" />
+            </div>
+
+
+
+            <button (click)="submit(standardTpl, loanfailTpl)" class="btn btn-primary shadow-2 mb-4">Submit</button>
+
+          </div>
+        </form>
+        <!--  -->
+
+      </div>
+    </div>
+    <div *ngIf="activeloan.has_loan" class=" card">
+      <div class="card-body text-center">
+        <form [formGroup]="LoanForm">
+          <h3 class="mb-4">Kindly fill Details to apply for loan</h3>
+          <div class="input-group mb-3">
+            <input type="text" formControlName="loan_amount" name="loan_amount" class="form-control"
+              placeholder="Loan Amount" />
           </div>
           <div class="input-group mb-3">
-            <input type="text" formControlName="guarantor2_identification2" name="guarantor2_identification2" class="form-control" placeholder="2nd Guarantor Identification number 2" />
+            <input type="number" formControlName="installment_period" name="installment_period" class="form-control"
+              placeholder="Installment Period (MONTHS)" />
           </div>
-          <div class=" mb-3">
-            <button pButton class="p-button p-button-outlined" pRipple type="button" (click)="g2_identification2.click()"
-              class="p-3 w-full mt-auto p-button-primary p-button-raised"><span class="spinner-border spinner-border-sm" *ngIf="UI4" role="status" aria-hidden="true"></span>&nbsp;&nbsp;Upload Identification File</button>
-            <input type="file" #g2_identification2 name="guarantor2_identification_file2" id="guarantor1_identification_file1" hidden accept="image/jpg,image/jpeg,image/png,pdf" maxFileSize="2048" (change)="handleFileUpload($event, 'g2_identification_file2',  successTpl, dangerTpl)" />
-             </div>
-             
-       
-    
-          <button (click)="submit(standardTpl, loanfailTpl)" class="btn btn-primary shadow-2 mb-4">Submit</button>
-          
-        </div>
-        </form>
-<!--  -->
-          
-        </div>
+          <button (click)="submitloan()" class="btn btn-primary shadow-2 mb-4">Submit</button>
+
+          </form>
       </div>
     </div>
   </div>
-  
+</div>

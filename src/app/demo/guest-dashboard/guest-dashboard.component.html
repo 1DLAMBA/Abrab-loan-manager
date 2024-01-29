@@ -21,7 +21,7 @@
     <p class="text-center " width="200px">Your Registeration Has Been submited and is awaiting Approval</p>
   </div>
 
-  <div *ngIf="user.approved&&!user.has_loan"
+  <div *ngIf="user.approved&&!user.loan_amount"
     class=" d-flex mx-auto justify-content-center align-items-center veh-100 col-xl-4">
     <app-card [hidHeader]="true">
       <h4>Hello, {{user.name}}</h4>
@@ -43,7 +43,7 @@
       </div>
     </app-card>
   </div>
-  <div *ngIf="user.has_loan" class="rounded-4 mx-auto d-flex justify-content-center  row gap-1 flex-wrap-reverse "
+  <div *ngIf="user.loan_amount" class="rounded-4 mx-auto d-flex justify-content-center  row gap-1 flex-wrap-reverse "
     style="min-height: 100vh;">
     <!-- <div class="rounded-4 mx-auto">
       <app-card  class="test" [hidHeader]="true">
@@ -93,17 +93,17 @@
         Country:{{user.country}} &nbsp;&nbsp; State:{{user.state}} &nbsp;&nbsp; City:{{user.city}} &nbsp;&nbsp;
         Address:{{user.address}}<br>
         <div class="d-flex">
-        <a target="_blank" href="{{avatar_file + user.identification_file1}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.identification_type}}
-          </button>
-        </a>
-        <a target="_blank" href="{{avatar_file + user.identification_file2}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.identification_type2}}
-          </button>
-        </a>
-      </div>
+          <a target="_blank" href="{{avatar_file + user.identification_file1}}">
+            <button class="btn btn-outline-info feather icon-eye">
+              {{user.identification_type}}
+            </button>
+          </a>
+          <a target="_blank" href="{{avatar_file + user.identification_file2}}">
+            <button class="btn btn-outline-info feather icon-eye">
+              {{user.identification_type2}}
+            </button>
+          </a>
+        </div>
         <form *ngIf="!user.account_number" [formGroup]="AccountForm">
           <div class="input-group mb-1">
             <input type="text" name="bank" class="form-control" formControlName="bank" placeholder="Bank" />
@@ -127,17 +127,17 @@
         Guarantor Phone No.:{{user.guarantor1_phoneno}} &nbsp;&nbsp;
         Guarantor Address:{{user.guarantor1_address}}<br>
         <div class="d-flex">
-        <a target="_blank" href="{{avatar_file + user.guarantor1_identification_file1}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.guarantor1_identification_type1}}
-          </button>
-        </a>
-        <a target="_blank" href="{{avatar_file + user.guarantor1_identification_file2}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.guarantor1_identification_type2}}
-          </button>
-        </a>
-      </div>
+          <a target="_blank" href="{{avatar_file + user.guarantor1_identification_file1}}">
+            <button class="btn btn-outline-info feather icon-eye">
+              {{user.guarantor1_identification_type1}}
+            </button>
+          </a>
+          <a target="_blank" href="{{avatar_file + user.guarantor1_identification_file2}}">
+            <button class="btn btn-outline-info feather icon-eye">
+              {{user.guarantor1_identification_type2}}
+            </button>
+          </a>
+        </div>
         <!-- <strong class="">{{user.guarantor1_identification_type1}}:</strong> {{user.guarantor1_identification1}} &nbsp;&nbsp;
              <strong> {{user.guarantor1_identification_type2}}:</strong>{{user.guarantor1_identification2}}<br>
             <strong class="">{{user.guarantor1_identification_file1}}:</strong> {{user.guarantor1_identification_file2}} -->
@@ -148,17 +148,17 @@
         Guarantor Phone No.:{{user.guarantor2_phoneno}} &nbsp;&nbsp;
         Guarantor Address:{{user.guarantor2_address}}<br>
         <div class="d-flex">
-        <a target="_blank" href="{{avatar_file + user.guarantor2_identification_file1}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.guarantor2_identification_type1}}
-          </button>
-        </a>
-        <a target="_blank" href="{{avatar_file + user.guarantor2_identification_file2}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.guarantor2_identification_type2}}
-          </button>
-        </a>
-      </div>
+          <a target="_blank" href="{{avatar_file + user.guarantor2_identification_file1}}">
+            <button class="btn btn-outline-info feather icon-eye">
+              {{user.guarantor2_identification_type1}}
+            </button>
+          </a>
+          <a target="_blank" href="{{avatar_file + user.guarantor2_identification_file2}}">
+            <button class="btn btn-outline-info feather icon-eye">
+              {{user.guarantor2_identification_type2}}
+            </button>
+          </a>
+        </div>
         <!-- <strong class="">{{user.guarantor2_identification_type1}}:</strong> {{user.guarantor2_identification1}} &nbsp;&nbsp;
               <strong> {{user.guarantor2_identification_file1}}:</strong>{{user.guarantor2_identification_type2}}<br>
             <strong class="">{{user.guarantor2_identification2}}:</strong> {{user.guarantor2_identification_file2}}
@@ -175,7 +175,10 @@
         <span *ngIf="!user.active" class="badge bg-warning text-dark col-3 ">Processing</span>
         <span *ngIf="user.active" class="badge bg-success col-3 ">Active</span>
         Amount: ₦{{user.loans.loan_amount | number:'1.2-2'}} &nbsp;&nbsp;
-        Installment(months):{{user.loans.installment_period}} &nbsp;&nbsp; Interest:₦{{user.loans.interest |
+        Installment(months):{{user.loans.installment_period}} &nbsp;&nbsp;
+        <span *ngIf="user.admin_interest" >
+
+         Interest:₦{{user.loans.interest |
         number:'1.2-2'}}<br>
         <hr>
         <span> <strong class="">Monthly Interest:</strong> ₦{{user.loans.monthly_interest | number:'1.2-2'}}
@@ -191,15 +194,20 @@
           number:'1.2-2'}}</span>
         <span *ngIf="user.active" class="badge bg-warning text-dark">Outstanding: ₦ {{user.loans.outstanding |
           number:'1.2-2'}}</span>
+        </span>
+        <span *ngIf="!user.admin_interest" class="loan-load">
+          <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+
+        </span>
       </div>
     </div>
 
   </div>
 
- 
+
 
 </div>
-<div *ngIf="acceptance" id="registration" class="letter p-5 card">
+<div *ngIf="acceptance" id="registration" class="letter p-5 m-5 card">
   <div class="modal-header mb-3">
     <button type="button" class="btn-close" aria-label="Close" (click)="closeacceptance()"></button>
     <button type="button" id="print" class="feather icon-printer d-print-none btn btn-outline-success" (click)="print()"
@@ -250,7 +258,8 @@
         ({{user.phoneno}})</u>
     </div>
     <div class="col-12">
-      We write to inform you that your business loan of =N=3,000,000 will be disburse on the
+      We write to inform you that your business loan of ₦{{user.loans.loan_amount | number: '1.2-2'}} will be disburse
+      on the
       account you provided below;
     </div>
     <div class="col-12 row mt-4 fw-bold">
@@ -266,12 +275,13 @@
     </div>
     <div class="col-12 mb-3">
       The loan attracts ₦{{user.loans.interest}} @3.5% of monthly interest rate, application form and administrative
-      charge #4,000 which shall be repaid along with the principal within the agreed period.
+      charge ₦2,000 which shall be repaid along with the principal within the agreed period.
     </div>
     <div class="col-12 mb-3">
       The mode of repayment shall be as follows:<br>
-      Amount: ₦{{user.loans.loan_amount | number: '1.2-2'}}&nbsp;&nbsp; Installment(months):
-      {{user.loans.loan_period}}&nbsp;&nbsp;Interest:₦{{user.loans.interest | number: '1.2-2'}}<br>
+      Principal: ₦{{user.loans.loan_amount | number: '1.2-2'}}&nbsp;&nbsp;
+      Period Of Installment:{{user.loans.loan_period}} Months&nbsp;&nbsp;<br>
+      Total Interest:₦{{user.loans.interest | number: '1.2-2'}}<br>
       Monthly Interest: ₦ {{user.loans.monthly_interest | number: '1.2-2'}}<br>
       Monthly Payment without interest: ₦ {{user.loans.monthly_payment_without_interest | number: '1.2-2'}}<br>
       Total Monthly Payment: ₦ {{user.loans.monthly_payment_with_interest | number: '1.2-2'}}<br>
@@ -289,15 +299,20 @@
     <div class="col-12">Thanks for your cooperation.</div>
     <div class="col-12 mb-3">Kind Regards,</div>
     <div class="col-12 d-flex flex-wrap mt-3 gap-5">
-      <div class="col-lg-3 border-top">
-        For: Abrab Nigeria Limited</div>
-      <div class="col-lg-2 border-top">
+      <div class=" col-lg-3 abrab-head">
+        <img src="../../../assets/images/stamp.png" width="250px" alt="">
+        <img style="position: absolute; left:150px; opacity: 0.6; bottom:100px;"
+          src="../../../assets/images/CamScanner 01-15-2024 09.32_1.jpg" width="100px" alt="">
+        <div class=" border-top">
+          For: Abrab Nigeria Limited</div>
+      </div>
+      <div class="col-lg-2 border-top mt-5">
         {{user.name}}
       </div>
-      <div class="col-lg-2 border-top">
+      <div class="col-lg-2 border-top mt-5">
         {{user.guarantor1_name}}
       </div>
-      <div class="col-lg-2 border-top">
+      <div class="col-lg-2 border-top mt-5">
         {{user.guarantor2_name}}
       </div>
     </div>
