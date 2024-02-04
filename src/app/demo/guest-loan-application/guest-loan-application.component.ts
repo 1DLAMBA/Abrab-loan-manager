@@ -215,7 +215,7 @@ ngOnInit(): void {
       this.showDanger($danger);
       return;
     }
-    this.createloan($success);
+    // this.createloan($success);
     
     const baseUrlLength = (environment.baseUrl + '/file/get/').length;
  this.g1_IdentificationDocumentFile1 = this.g1_uploadedIdentificationDocumentFile1.slice(

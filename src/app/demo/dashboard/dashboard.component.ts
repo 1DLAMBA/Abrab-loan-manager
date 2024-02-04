@@ -60,24 +60,22 @@ export default class DashboardComponent implements OnInit {
     })
 
   }
-  triggerApproval($id){
-    this._http.get(`${environment.baseUrl}/user/get/unapproved/${$id}`)
-    .subscribe((response:any)=>{
-    this.visible =true;
-    this.approvedusername = response.users.name;
+  // triggerApproval($id){
+  //   this._http.get(`${environment.baseUrl}/user/get/unapproved/${$id}`)
+  //   .subscribe((response:any)=>{
+  //   this.visible =true;
+  //   this.approvedusername = response.users.name;
 
-      console.log(response);
-    })
-  }
+  //     console.log(response);
+  //   })
+  // }
   approve($id){
     const id = $id;
     const formData={
-      admin_interest: this.adminInterestForm.value.admin_interest
+      id: $id
     }
-    this._http.post(`${environment.baseUrl}/user/approve/${id}`, formData)
+    this._http.post(`${environment.baseUrl}/user/approve/${id}`, id)
     .subscribe((response:any)=>{
-    this.visible =true;
-
       console.log(response);
       window.alert('User has been approved')
       this.getRegisteredUsers();

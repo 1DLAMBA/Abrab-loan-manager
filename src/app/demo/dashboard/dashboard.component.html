@@ -157,7 +157,7 @@
               <td>
                 <img *ngIf="table.passport"
                   class="rounded-circle"
-                  style="width: 40px"
+                  style="width: 30%; height: auto;"
                   src="{{ avatar_file + table.passport }}"
                   alt="activity-user"
                 />
@@ -195,7 +195,7 @@
                 <button type="button"  (click)="reject(table.id)" class="btn shadow-3 btn-rounded btn-danger">
                   Reject</button
                 >
-                <button (click)="triggerApproval(table.id)" type="button" class="btn shadow-3 btn-rounded btn-success">
+                <button (click)="approve(table.id)" type="button" class="btn shadow-3 btn-rounded btn-success">
                   Approve</button
                 >
               </td>

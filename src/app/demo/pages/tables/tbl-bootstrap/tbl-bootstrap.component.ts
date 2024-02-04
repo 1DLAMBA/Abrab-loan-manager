@@ -55,6 +55,7 @@ export default class TblBootstrapComponent implements OnInit {
   acceptance: boolean = false;
   activeloaners: boolean = true;
   pending: boolean = true;
+  adminform: FormGroup;
   constructor(
     private readonly fb: FormBuilder,
     private readonly router: Router,
@@ -65,13 +66,12 @@ export default class TblBootstrapComponent implements OnInit {
     private modalService: NgbModal
   ) {
     this.adminform = this.fb.group({
-      admin_charges: this.fb.control('', [Validators.required])
+      admin_interest: this.fb.control('', [Validators.required])
 
     })
   }
   visible: boolean = false;
   visible1: boolean = false;
-  adminform: FormGroup;
 
   showSuccess() {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
@@ -175,14 +175,11 @@ export default class TblBootstrapComponent implements OnInit {
   activate($id) {
     const id = $id
     const formData = {
-      active: 'activate'
-    };
-    const formData1 = {
-
-      admin_charges: this.adminform.value.admin_charges
+      active: 'activate',  
+      admin_interest: this.adminform.value.admin_interest
     };
    
-    console.log(formData1.admin_charges)
+    // console.log(formData1.admin_charges)
     this._http.post(`${environment.baseUrl}/user/activate/${id}`, formData)
       .subscribe((response: any) => {
         location.reload();
