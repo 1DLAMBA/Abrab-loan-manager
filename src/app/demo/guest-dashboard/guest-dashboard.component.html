@@ -1,317 +1,317 @@
-<div class="headclass container-fluid d-print-none">
-  <div class="headhold   d-print-none container-fluid d-flex p-2 mb-2">
+<ng-template #successTpl> File Uploaded </ng-template>
 
-    <a class="d-flex" routerLink="../landing">
-      <img src="../../../assets/images/AbrabLogo2.png" width="45px" class="rounded-circle" alt="">
 
-      <h1 class="text-center bg-opacity-10 ">ABRAB NIGERIA LIMITED<br><small>RC NO:1870243</small></h1>
-    </a>
 
-    <div class="ms-auto">
-      <img width="20px" src="{{avatar_file + user.passport}}">
-      <a routerLink="../guest-login"><button class="btn feather icon-log-out"></button> </a>
+<body class="vh-100">
+
+  
+  <div class="headclass container-fluid d-print-none">
+    <div class="headhold   d-print-none container-fluid d-flex p-2 mb-2">
+  
+      <a class="d-flex" routerLink="../landing">
+        <img src="../../../assets/images/AbrabLogo2.png" width="45px" class="rounded-circle" alt="">
+  
+        <h1 class="text-center bg-opacity-10 ">ABRAB NIGERIA LIMITED<br><small>RC NO:1870243</small></h1>
+      </a>
+  
+      <div class="ms-auto">
+        <img width="20px" src="{{avatar_file + user.passport}}">
+        <a routerLink="../guest-login"><button class="btn feather icon-log-out"></button> </a>
+      </div>
     </div>
   </div>
-</div>
-<div *ngIf="application" class=" justify-content-center " style="min-height: 100vh;">
-  <div *ngIf="!user.approved" class="card-block card pt-5 p-3 vh-100 d-flex align-items-center just">
-    <h4>Hello, {{user.name}}</h4>
-    <img width="200px" src="../../../assets/images/AbrabLogo.png">
-    <span class="feather icon-file-text text-center"></span>
-    <p class="text-center " width="200px">Your Registeration Has Been submited and is awaiting Approval</p>
-  </div>
-
-  <div *ngIf="user.approved&&!user.has_loan"
-    class=" d-flex mx-auto justify-content-center align-items-center veh-100 col-xl-4">
-    <app-card [hidHeader]="true">
+  <div *ngIf="application" class=" justify-content-center d-flex mb-5" style="height: 100vh;">
+    <div *ngIf="!user.approved" class="card-block card pt-5 p-3 m-auto rounded-1 d-flex align-items-center just">
       <h4>Hello, {{user.name}}</h4>
-      <h6 class="mb-4">Welcome to Abrab Limited Nigeria</h6>
-      <div class="ms-3 align-items-center">
-        <div class="">
-          <span class="mx-auto">
-            <img width="200px" src="../../../assets/images/AbrabLogo.png">
-          </span>
+      <img width="200px" src="../../../assets/images/AbrabLogo.png">
+      <span class="feather icon-file-text text-center"></span>
+      <p class="text-center " width="200px">Your Registeration Has Been submited and is awaiting Approval</p>
+    </div>
+  
+    <div *ngIf="user.approved&&!user.loan_amount"
+      class=" m-auto p-5 col-lg-9" style="">
+      <app-card [hidHeader]="true">
+        <h4>Hello, {{user.name}}</h4>
+        <h6 class="mb-4">Welcome to Abrab Limited Nigeria</h6>
+        <div class="ms-3 align-items-center">
+          <div class="d-flex">
+            <div class="mx-auto">
+              <img width="200px" src="../../../assets/images/AbrabLogo.png">
+            </div>
+          </div>
+  
         </div>
-
-      </div>
-      <p class="text-center " width="200px"><span class="feather icon-check-circle text-c-green text-center"></span>
-        Your Registeration Has Been Approved</p>
-
-      <div class="m-t-30 d-flex mx-auto">
-        <button (click)="proceed()" type="button" class="mx-auto btn btn-outline-success btn-rounded ">Proceed<span
-            class="feather icon-arrow-right"></span></button>
-      </div>
-    </app-card>
-  </div>
-  <div *ngIf="user.has_loan" class="rounded-4 mx-auto d-flex justify-content-center  row gap-1 flex-wrap-reverse "
-    style="min-height: 100vh;">
-    <!-- <div class="rounded-4 mx-auto">
-      <app-card  class="test" [hidHeader]="true">
-    <img width="180px" src="../../../assets/images/AbrabLogo2.png">
-        <h4>Personal Details</h4>
-        Name: {{user.name}}  &nbsp;&nbsp; Email:{{user.email}} &nbsp;&nbsp; Phone Number:{{user.phoneno}}<br>
-            <strong class="">Country:</strong> {{user.country}} &nbsp;&nbsp; <strong> State:</strong>{{user.state}} &nbsp;&nbsp; <strong>City:</strong>{{user.city}} &nbsp;&nbsp; <strong> Address:</strong>{{user.address}}<br>
-            {{user.identification_type}}:{{user.identification_number1}}&nbsp;&nbsp; {{user.identification_type2}}: {{user.identification_number2}}<br>
-            <form *ngIf="!user.account_number" [formGroup]="AccountForm">
+        <p class="text-center " width="200px"><span class="feather icon-check-circle text-c-green text-center"></span>
+          Your Registeration Has Been Approved</p>
+  
+        <div class="m-t-30 d-flex mx-auto">
+          <button (click)="proceed()" type="button" class="mx-auto btn btn-outline-success btn-rounded ">Proceed<span
+              class="feather icon-arrow-right"></span></button>
+        </div>
+      </app-card>
+    </div>
+    <div *ngIf="user.loan_amount" class="rounded-4 m-auto d-flex justify-content-center  row gap-1 flex-wrap-reverse "
+      style="z-index: 0;">
+      <div class=" cancel col-12 col-lg-6">
+        <div class=" card shadow-sm rounded-4  p-3">
+          <button [disabled]="!user.account_number" class="btn btn-outline-success shadow-sm feather icon-file-text "
+            (click)="showacceptance()"></button>
+          <img width="180px" src="../../../assets/images/AbrabLogo2.png">
+          <h4>Personal Details</h4>
+          Name: {{user.name}} &nbsp;&nbsp; Email:{{user.email}} &nbsp;&nbsp; Phone Number:{{user.phoneno}}<br>
+          Country:{{user.country}} &nbsp;&nbsp; State:{{user.state}} &nbsp;&nbsp; City:{{user.city}} &nbsp;&nbsp;
+          Address:{{user.address}}<br>
+          <div class="d-flex">
+            <a target="_blank" href="{{avatar_file + user.identification_file1}}">
+              <button class="btn btn-outline-info feather icon-eye">
+                {{user.identification_type}}
+              </button>
+            </a>
+            <a target="_blank" href="{{avatar_file + user.identification_file2}}">
+              <button class="btn btn-outline-info feather icon-eye">
+                {{user.identification_type2}}
+              </button>
+            </a>
+          </div>
+          <form *ngIf="!user.account_number" [formGroup]="AccountForm">
+            <div class="input-group mb-1">
+              <input type="text" name="bank" class="form-control" formControlName="bank" placeholder="Bank" />
+              <input type="text" formControlName="account_number" name="account_number" class="form-control"
+                placeholder="Accnt No." />
+            </div>
             <div class="input-group mb-3">
-              <input type="text"   name="bank" class="form-control" formControlName="bank" placeholder="Bank" />
-              <input type="text" formControlName="account_number" name="account_number" class="form-control" placeholder="Accnt No." />
+              <input type="text" formControlName="account_name" name="account_name" class="form-control"
+                placeholder="Accnt Name." />
               <button (click)="accountform()" class="btn btn-primary">Submit</button>
             </div>
           </form>
-          <div *ngIf="user.account_number" class="border p-2 m-3">
+          <div *ngIf="user.account_number" class="border rounded-3 shadow-sm p-2 fw-bold m-3">
             <h6>Bank:&nbsp;{{user.bank}}</h6>&nbsp;&nbsp;&nbsp;
+            <h6>Account Name:&nbsp;{{user.account_name | uppercase}}</h6>&nbsp;&nbsp;&nbsp;
             <h6>Account Number:&nbsp;{{user.account_number}}</h6>
           </div>
-            <h4>Guarantors' Info</h4>
-            <h6>First Guarantor</h6>
-            <strong class="">Guarantor Name:</strong> {{user.guarantor1_name}} &nbsp;&nbsp; 
-            <strong> Guarantor Phone No.:</strong>{{user.guarantor1_phoneno}} &nbsp;&nbsp;
-             <strong> Guarantor Address:</strong>{{user.guarantor1_address}}<br>
-            <strong class="">{{user.guarantor1_identification_type1}}:</strong> {{user.guarantor1_identification1}} &nbsp;&nbsp;
-             <strong> {{user.guarantor1_identification_type2}}:</strong>{{user.guarantor1_identification2}}<br>
-            <strong class="">{{user.guarantor1_identification_file1}}:</strong> {{user.guarantor1_identification_file2}}
-            <br>
-            <hr>
-            <h6>Second Guarantor</h6>
-            <strong class="">Guarantor Name:</strong> {{user.guarantor2_name}} &nbsp;&nbsp; 
-            <strong> Guarantor Phone No.:</strong>{{user.guarantor2_phoneno}} &nbsp;&nbsp;
-             <strong> Guarantor Address:</strong>{{user.guarantor2_address}}<br>
-            <strong class="">{{user.guarantor2_identification_type1}}:</strong> {{user.guarantor2_identification1}} &nbsp;&nbsp;
-              <strong> {{user.guarantor2_identification_file1}}:</strong>{{user.guarantor2_identification_type2}}<br>
-            <strong class="">{{user.guarantor2_identification2}}:</strong> {{user.guarantor2_identification_file2}}
-            
-  </app-card>
-    </div> -->
-    <div class=" cancel col-12 col-lg-6">
-      <div class=" card shadow-sm rounded-4  p-3">
-        <button [disabled]="!user.account_number" class="btn btn-outline-success shadow-sm feather icon-file-text "
-          (click)="showacceptance()"></button>
-        <img width="180px" src="../../../assets/images/AbrabLogo2.png">
-        <h4>Personal Details</h4>
-        Name: {{user.name}} &nbsp;&nbsp; Email:{{user.email}} &nbsp;&nbsp; Phone Number:{{user.phoneno}}<br>
-        Country:{{user.country}} &nbsp;&nbsp; State:{{user.state}} &nbsp;&nbsp; City:{{user.city}} &nbsp;&nbsp;
-        Address:{{user.address}}<br>
-        <div class="d-flex">
-        <a target="_blank" href="{{avatar_file + user.identification_file1}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.identification_type}}
-          </button>
-        </a>
-        <a target="_blank" href="{{avatar_file + user.identification_file2}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.identification_type2}}
-          </button>
-        </a>
-      </div>
-        <form *ngIf="!user.account_number" [formGroup]="AccountForm">
-          <div class="input-group mb-1">
-            <input type="text" name="bank" class="form-control" formControlName="bank" placeholder="Bank" />
-            <input type="text" formControlName="account_number" name="account_number" class="form-control"
-              placeholder="Accnt No." />
+          <h4>Guarantors' Info</h4>
+          <h6>First Guarantor</h6>
+          Guarantor Name: {{user.guarantor1_name}} &nbsp;&nbsp;
+          Guarantor Phone No.:{{user.guarantor1_phoneno}} &nbsp;&nbsp;
+          Guarantor Address:{{user.guarantor1_address}}<br>
+          <div class="d-flex">
+            <a target="_blank" href="{{avatar_file + user.guarantor1_identification_file1}}">
+              <button class="btn btn-outline-info feather icon-eye">
+                {{user.guarantor1_identification_type1}}
+              </button>
+            </a>
+            <a target="_blank" href="{{avatar_file + user.guarantor1_identification_file2}}">
+              <button class="btn btn-outline-info feather icon-eye">
+                {{user.guarantor1_identification_type2}}
+              </button>
+            </a>
           </div>
-          <div class="input-group mb-3">
-            <input type="text" formControlName="account_name" name="account_name" class="form-control"
-              placeholder="Accnt Name." />
-            <button (click)="accountform()" class="btn btn-primary">Submit</button>
+          <!-- <strong class="">{{user.guarantor1_identification_type1}}:</strong> {{user.guarantor1_identification1}} &nbsp;&nbsp;
+               <strong> {{user.guarantor1_identification_type2}}:</strong>{{user.guarantor1_identification2}}<br>
+              <strong class="">{{user.guarantor1_identification_file1}}:</strong> {{user.guarantor1_identification_file2}} -->
+          <br>
+          <hr>
+          <h6>Second Guarantor</h6>
+          Guarantor Name: {{user.guarantor2_name}} &nbsp;&nbsp;
+          Guarantor Phone No.:{{user.guarantor2_phoneno}} &nbsp;&nbsp;
+          Guarantor Address:{{user.guarantor2_address}}<br>
+          <div class="d-flex">
+            <a target="_blank" href="{{avatar_file + user.guarantor2_identification_file1}}">
+              <button class="btn btn-outline-info feather icon-eye">
+                {{user.guarantor2_identification_type1}}
+              </button>
+            </a>
+            <a target="_blank" href="{{avatar_file + user.guarantor2_identification_file2}}">
+              <button class="btn btn-outline-info feather icon-eye">
+                {{user.guarantor2_identification_type2}}
+              </button>
+            </a>
           </div>
-        </form>
-        <div *ngIf="user.account_number" class="border rounded-3 shadow-sm p-2 fw-bold m-3">
-          <h6>Bank:&nbsp;{{user.bank}}</h6>&nbsp;&nbsp;&nbsp;
-          <h6>Account Name:&nbsp;{{user.account_name | uppercase}}</h6>&nbsp;&nbsp;&nbsp;
-          <h6>Account Number:&nbsp;{{user.account_number}}</h6>
+          <!-- <strong class="">{{user.guarantor2_identification_type1}}:</strong> {{user.guarantor2_identification1}} &nbsp;&nbsp;
+                <strong> {{user.guarantor2_identification_file1}}:</strong>{{user.guarantor2_identification_type2}}<br>
+              <strong class="">{{user.guarantor2_identification2}}:</strong> {{user.guarantor2_identification_file2}}
+               -->
+  
         </div>
-        <h4>Guarantors' Info</h4>
-        <h6>First Guarantor</h6>
-        Guarantor Name: {{user.guarantor1_name}} &nbsp;&nbsp;
-        Guarantor Phone No.:{{user.guarantor1_phoneno}} &nbsp;&nbsp;
-        Guarantor Address:{{user.guarantor1_address}}<br>
-        <div class="d-flex">
-        <a target="_blank" href="{{avatar_file + user.guarantor1_identification_file1}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.guarantor1_identification_type1}}
-          </button>
-        </a>
-        <a target="_blank" href="{{avatar_file + user.guarantor1_identification_file2}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.guarantor1_identification_type2}}
-          </button>
-        </a>
       </div>
-        <!-- <strong class="">{{user.guarantor1_identification_type1}}:</strong> {{user.guarantor1_identification1}} &nbsp;&nbsp;
-             <strong> {{user.guarantor1_identification_type2}}:</strong>{{user.guarantor1_identification2}}<br>
-            <strong class="">{{user.guarantor1_identification_file1}}:</strong> {{user.guarantor1_identification_file2}} -->
-        <br>
-        <hr>
-        <h6>Second Guarantor</h6>
-        Guarantor Name: {{user.guarantor2_name}} &nbsp;&nbsp;
-        Guarantor Phone No.:{{user.guarantor2_phoneno}} &nbsp;&nbsp;
-        Guarantor Address:{{user.guarantor2_address}}<br>
-        <div class="d-flex">
-        <a target="_blank" href="{{avatar_file + user.guarantor2_identification_file1}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.guarantor2_identification_type1}}
-          </button>
-        </a>
-        <a target="_blank" href="{{avatar_file + user.guarantor2_identification_file2}}">
-          <button class="btn btn-outline-info feather icon-eye">
-            {{user.guarantor2_identification_type2}}
-          </button>
-        </a>
-      </div>
-        <!-- <strong class="">{{user.guarantor2_identification_type1}}:</strong> {{user.guarantor2_identification1}} &nbsp;&nbsp;
-              <strong> {{user.guarantor2_identification_file1}}:</strong>{{user.guarantor2_identification_type2}}<br>
-            <strong class="">{{user.guarantor2_identification2}}:</strong> {{user.guarantor2_identification_file2}}
-             -->
-
-      </div>
-    </div>
-    <div class=" cancel col-12  col-lg-4 ">
-      <div class=" card cardd shadow-sm rounded-4 ms-md-3 p-3">
-        <div class="text-center">
-          <img class="rounded-1 img-fluid" width="150px" src="{{ avatar_file + user.passport }}">
+      <div class=" cancel col-12  col-lg-4 ">
+        <div class=" card cardd shadow-sm rounded-4 ms-md-3 p-3">
+          <div class="text-center">
+            <img class="rounded-1 img-fluid" width="150px" src="{{ avatar_file + user.passport }}">
+          </div>
+          <h4>Loan Details</h4>
+          <span *ngIf="!user.active" class="badge bg-warning text-dark col-3 ">Processing</span>
+          <span *ngIf="user.active" class="badge bg-success col-3 ">Active</span>
+          <small *ngIf="!user.active" class="text-c-red">*You are yet to upload your signed contract, <br>it is mandatoryfor your account to be activated</small><br>
+  
+          Amount: ₦{{user.loan_amount | number:'1.2-2'}} &nbsp;&nbsp;
+          Installment(months):{{user.installment_period}} &nbsp;&nbsp;
+          <span *ngIf="user.loans" >
+  
+           Interest:₦{{user.loans.interest |
+          number:'1.2-2'}}<br>
+          <hr>
+          <span> <strong class="">Monthly Interest:</strong> ₦{{user.loans.monthly_interest | number:'1.2-2'}}
+            &nbsp;&nbsp;<br></span><br>
+          <span> <strong> Monthly payment with interest:</strong>₦{{user.loans.monthly_payment_with_interest |
+            number:'1.2-2'}} &nbsp;&nbsp;</span>
+          <small class="text-c-red">*Monthly payment with interest is mandatory</small><br>
+          <span> <strong>Monthly payment without Interest:</strong>₦{{user.loans.monthly_payment_without_interest |
+            number:'1.2-2'}} &nbsp;&nbsp; </span><br><strong>
+            Total Repayment:</strong>₦{{user.loans.total_repayment | number:'1.2-2'}}<br>
+  
+          <span *ngIf="user.active" class="badge bg-success mb-1">Paid: ₦ {{user.loans.amount_paid_so_far |
+            number:'1.2-2'}}</span>
+          <span *ngIf="user.active" class="badge bg-warning text-dark">Outstanding: ₦ {{user.loans.outstanding |
+            number:'1.2-2'}}</span>
+          </span>
+          <span *ngIf="!user.loans" class="loan-load">
+            <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+  
+          </span>
         </div>
-        <h4>Loan Details</h4>
-        <span *ngIf="!user.active" class="badge bg-warning text-dark col-3 ">Processing</span>
-        <span *ngIf="user.active" class="badge bg-success col-3 ">Active</span>
-        Amount: ₦{{user.loans.loan_amount | number:'1.2-2'}} &nbsp;&nbsp;
-        Installment(months):{{user.loans.installment_period}} &nbsp;&nbsp; Interest:₦{{user.loans.interest |
-        number:'1.2-2'}}<br>
-        <hr>
-        <span> <strong class="">Monthly Interest:</strong> ₦{{user.loans.monthly_interest | number:'1.2-2'}}
-          &nbsp;&nbsp;<br></span><br>
-        <span> <strong> Monthly payment with interest:</strong>₦{{user.loans.monthly_payment_with_interest |
-          number:'1.2-2'}} &nbsp;&nbsp;</span>
-        <small class="text-c-red">*Monthly payment with interest is mandatory</small><br>
-        <span> <strong>Monthly payment without Interest:</strong>₦{{user.loans.monthly_payment_without_interest |
-          number:'1.2-2'}} &nbsp;&nbsp; </span><br><strong>
-          Total Repayment:</strong>₦{{user.loans.total_repayment | number:'1.2-2'}}<br>
-
-        <span *ngIf="user.active" class="badge bg-success mb-1">Paid: ₦ {{user.loans.amount_paid_so_far |
-          number:'1.2-2'}}</span>
-        <span *ngIf="user.active" class="badge bg-warning text-dark">Outstanding: ₦ {{user.loans.outstanding |
-          number:'1.2-2'}}</span>
       </div>
+  
     </div>
-
+  
+  
+  
   </div>
-
- 
-
-</div>
-<div *ngIf="acceptance" id="registration" class="letter p-5 card">
-  <div class="modal-header mb-3">
-    <button type="button" class="btn-close" aria-label="Close" (click)="closeacceptance()"></button>
-    <button type="button" id="print" class="feather icon-printer d-print-none btn btn-outline-success" (click)="print()"
-      aria-label="Close"></button>
-  </div>
-
-  <div class="modal-header">
-    <img width="150px" src="../../../../../assets/images/AbrabLogo.png" alt="">
-    <img width="150px" src="{{ avatar_file + user.passport }}">
-
-  </div>
-  <div class="col-12">
-    <div class=" text-center">
-      <h1 class="title">ABRAB NIGERIA LIMITED</h1>
+  <div *ngIf="acceptance" id="registration" class="letter p-3 m-3 card">
+  
+    <div class="mb-3  d-print-none print-none">
+      <button  pButton class="p-button d-print-none p-button-outlined" pRipple type="button"
+        (click)="contractLetter.click()" class="p-3 w-full mt-auto p-button-primary p-button-raised"><span
+          class="spinner-border spinner-border-sm" *ngIf="contractLoader" role="status"
+          aria-hidden="true"></span>&nbsp;Upload Signed Agreement</button>
+      <input type="file" #contractLetter name="contractLetter"
+        id="contractLetter" hidden accept="image/jpg,image/jpeg,image/png,PDF"
+        maxFileSize="4048"
+        (change)="handleFileUpload($event, user.id, successTpl)" />
     </div>
-  </div>
-  <div class="row col-12">
-    <div class="col-9">
-      <p>Contact Address: Opposite Michael Block Industry opposite Kosa Kosa filling Station. Lambata Niger State</p>
-      <br>
+  
+    <div class="modal-header mb-3">
+      <button type="button" class="btn-close" aria-label="Close" (click)="closeacceptance()"></button>
+      <button type="button" id="print" class="feather icon-printer d-print-none btn btn-outline-success" (click)="print()"
+        aria-label="Close"></button>
     </div>
-    <div class="col-lg-6">
-      <p>Phone: 0814 585 6651 </p>
-    </div>
-    <div class="col-lg-6">
-      Email: abrabnigerialtd@gmail.com
-    </div>
-    <div class="col-12 text-center border-bottom mb-4">
-      <b>Motto:</b> We share our wealth with you !!!
-    </div>
-    <div class="col-lg-4 mt-4">
-      Name: {{user.name}},
-      <br>
-      Address: {{user.address}}, {{user.city}}, {{user.state}}
-    </div>
-    <div class="col-lg-4">
-      Guarantor 1: {{user.guarantor1_name}}<br>Location: {{user.guarantor1_address}}
-    </div>
-    <div class="col-lg-4">
-      Guarantor 2: {{user.guarantor2_name}}<br>Location: {{user.guarantor2_address}}
-
-    </div>
-    <div class="col-12 mb-3">
-      {{user.loans.created_at | date}}
-    </div>
-    <div class="col-12 text-center">
-      <u>ACCEPTANCE OF ₦{{user.loans.loan_amount}} LOAN DISBURSEMENT IN {{user.guarantor1_address}}
-        ({{user.phoneno}})</u>
+  
+    <div class="modal-header">
+      <img width="150px" src="../../../../../assets/images/AbrabLogo.png" alt="">
+      <img width="150px" src="{{ avatar_file + user.passport }}">
+  
     </div>
     <div class="col-12">
-      We write to inform you that your business loan of =N=3,000,000 will be disburse on the
-      account you provided below;
+      <div class=" text-center">
+        <h1 class="title">ABRAB NIGERIA LIMITED</h1>
+      </div>
     </div>
-    <div class="col-12 row mt-4 fw-bold">
-      <div class="col-lg-4">
-        Bank: {{user.bank}}
+    <div class="row col-12">
+      <div class="col-9">
+        <p>Contact Address: Opposite Michael Block Industry opposite Kosa Kosa filling Station. Lambata Niger State</p>
+        
+      </div>
+      <div class="col-lg-6">
+        <p>Phone: 0814 585 6651 </p>
+      </div>
+      <div class="col-lg-6">
+        Email: abrabnigerialtd@gmail.com
+      </div>
+      <div class="col-12 text-center border-bottom mb-2">
+        <b>Motto:</b> We share our wealth with you !!!
       </div>
       <div class="col-lg-4">
-        Acct Name: {{user.account_name}}
+        Name: {{user.name}},
+        <br>
+        Address: {{user.address}}, {{user.city}}, {{user.state}}
       </div>
-      <div class="col-lg-3 mb-3 ">
-        Acct No.: {{user.account_number}}
+      <div class="col-lg-4">
+        Guarantor 1: {{user.guarantor1_name}}<br>Location: {{user.guarantor1_address}}
       </div>
-    </div>
-    <div class="col-12 mb-3">
-      The loan attracts ₦{{user.loans.interest}} @3.5% of monthly interest rate, application form and administrative
-      charge #4,000 which shall be repaid along with the principal within the agreed period.
-    </div>
-    <div class="col-12 mb-3">
-      The mode of repayment shall be as follows:<br>
-      Amount: ₦{{user.loans.loan_amount | number: '1.2-2'}}&nbsp;&nbsp; Installment(months):
-      {{user.loans.loan_period}}&nbsp;&nbsp;Interest:₦{{user.loans.interest | number: '1.2-2'}}<br>
-      Monthly Interest: ₦ {{user.loans.monthly_interest | number: '1.2-2'}}<br>
-      Monthly Payment without interest: ₦ {{user.loans.monthly_payment_without_interest | number: '1.2-2'}}<br>
-      Total Monthly Payment: ₦ {{user.loans.monthly_payment_with_interest | number: '1.2-2'}}<br>
-      Submitted on {{user.loans.created_at | date}}
-    </div>
-    <div class="col-12 mb-3">
-      ALL LATE PAYMENT ATTRACT ₦5,000 DAILY WITHOUT PLEAD AND YOUR GUARANTOR AND REFERER WILL BE HELD LIABLE FOR ANY
-      DEFAULT OR EVENTUALITIES. WITHOUT BIAS, IN ATTEMPT TO RECOVER OUR FUNDS THIS LETTER CAN ALSO BE USE AS DIRECT
-      LETTER TO THE UK EMBASSY, NIGERIA POLICE FORCE AND NEWSPAPER PUBLICATION FOR LEGAL ACTION.
-    </div>
-    <div class="col-12">All payments MUST be directed to our Bank details provided below </div>
-    <div class="col-12">ACCOUNT NAME.: ABRAB NIGERIA LIMITED</div>
-    <div class="col-12">ACCOUNT NUMBER: 067 680 2709</div>
-    <div class="col-12 mb-3">BANK NAME: GUARANTY TRUST BANK PLC</div>
-    <div class="col-12">Thanks for your cooperation.</div>
-    <div class="col-12 mb-3">Kind Regards,</div>
-    <div class="col-12 d-flex flex-wrap mt-3 gap-5">
-      <div class="col-lg-3 border-top">
-        For: Abrab Nigeria Limited</div>
-      <div class="col-lg-2 border-top">
-        {{user.name}}
+      <div class="col-lg-4">
+        Guarantor 2: {{user.guarantor2_name}}<br>Location: {{user.guarantor2_address}}
+  
       </div>
-      <div class="col-lg-2 border-top">
-        {{user.guarantor1_name}}
+      <div class="col-12 mb-3">
+        {{user.created_at | date}}
       </div>
-      <div class="col-lg-2 border-top">
-        {{user.guarantor2_name}}
+      <div class="col-12 text-center">
+        <u>ACCEPTANCE OF ₦{{user.loan_amount}} LOAN DISBURSEMENT IN {{user.guarantor1_address}}
+          ({{user.phoneno}})</u>
       </div>
+      <div class="col-12">
+        We write to inform you that your business loan of ₦{{user.loan_amount | number: '1.2-2'}} will be disburse
+        on the
+        account you provided below;
+      </div>
+      <div class="col-12 row fw-bold">
+        <div class="col-lg-4">
+          Bank: {{user.bank}}
+        </div>
+        <div class="col-lg-4">
+          Acct Name: {{user.account_name}}
+        </div>
+        <div class="col-lg-3 mb-1 ">
+          Acct No.: {{user.account_number}}
+        </div>
+      </div>
+      <div class="col-12 mb-1">
+        The loan attracts ₦{{user.loans.interest | number: '1.2-2'}} @{{user.admin_interest}}% of monthly interest rate, application form and administrative
+        charge ₦2,000 which shall be repaid along with the principal within the agreed period.
+      </div>
+      <div class="col-12 mb-3">
+        The mode of repayment shall be as follows:<br>
+        Principal: ₦{{user.loans.loan_amount | number: '1.2-2'}}&nbsp;&nbsp;
+        Period Of Installment:{{user.loans.loan_period}} Months&nbsp;&nbsp;<br>
+        Total Interest:₦{{user.loans.interest | number: '1.2-2'}}<br>
+        Monthly Interest: ₦ {{user.loans.monthly_interest | number: '1.2-2'}}<br>
+        Monthly Payment without interest: ₦ {{user.loans.monthly_payment_without_interest | number: '1.2-2'}}<br>
+        Total Monthly Payment: ₦ {{user.loans.monthly_payment_with_interest | number: '1.2-2'}}<br>
+        Submitted on {{user.loans.created_at | date}}
+      </div>
+      <div class="col-12 mb-3">
+        ALL LATE PAYMENT ATTRACT ₦5,000 DAILY WITHOUT PLEAD AND YOUR GUARANTOR AND REFERER WILL BE HELD LIABLE FOR ANY
+        DEFAULT OR EVENTUALITIES. WITHOUT BIAS, IN ATTEMPT TO RECOVER OUR FUNDS THIS LETTER CAN ALSO BE USE AS DIRECT
+        LETTER TO THE UK EMBASSY, NIGERIA POLICE FORCE AND NEWSPAPER PUBLICATION FOR LEGAL ACTION.
+      </div>
+      <div class="col-12">All payments MUST be directed to our Bank details provided below </div>
+      <div class="col-12">ACCOUNT NAME.: ABRAB NIGERIA LIMITED</div>
+      <div class="col-12">ACCOUNT NUMBER: 067 680 2709</div>
+      <div class="col-12 mb-3">BANK NAME: GUARANTY TRUST BANK PLC</div>
+      <div class="col-12">Thanks for your cooperation.</div>
+      <div class="col-12 mb-3">Kind Regards,</div>
+      <div class="col-12 d-flex mt-3 gap-5">
+        <div class=" col-lg-3 abrab-head">
+          <img src="../../../assets/images/stampWithSignature.png" width="120px" alt="">
+          <div class=" border-top">
+            For: Abrab Nigeria Limited</div>
+        </div>
+        <div class="col-lg-2 border-top mt-5">
+          {{user.name}}
+        </div>
+        <div class="col-lg-2 border-top mt-5">
+          {{user.guarantor1_name}}
+        </div>
+        <div class="col-lg-2 border-top mt-5">
+          {{user.guarantor2_name}}
+        </div>
+      </div>
+  
     </div>
-
   </div>
-</div>
-<div class="d-flex foothold gap-5 border-top mt-3 container-fluid p-2 ps-4 pe-4 ">
-  <div class="text">
-    <h1 class="  bg-opacity-10"><u>Contact Us</u><br> <span class="feather icon-phone"> 0814 585
-        6651</span><br><small><span class="feather icon-mail">: abrabnigerialtd@gmail.com</span></small></h1>
-  </div>
-  <div class="buttons d-flex ms-auto">
-    <small style=" " class="align-self-end">
-      <u>Address</u><br> Opposite Michael Block Industry opposite Kosa Kosa filling Station. Lambata Niger State.
-    </small>
-  </div>
-</div>
+  <footer>  
+    <div class="d-flex mt-5  d-print-none print-none foothold gap-5 border-top mt-3 container-fluid p-2 ps-4 pe-4 ">
+      <div class="text">
+        <h1 class="  bg-opacity-10"><u>Contact Us</u><br> <span class="feather icon-phone"> 0814 585
+            6651</span><br><small><span class="feather icon-mail">: abrabnigerialtd@gmail.com</span></small></h1>
+      </div>
+      <div class="buttons d-flex ms-auto">
+        <small style=" " class="align-self-end">
+          <u>Address</u><br> Opposite Michael Block Industry opposite Kosa Kosa filling Station. Lambata Niger State.
+        </small>
+      </div>
+    </div>
+  
+  </footer>
+</body>

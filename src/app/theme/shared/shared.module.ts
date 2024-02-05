@@ -9,6 +9,7 @@ import { TableModule } from 'primeng/table';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DropdownModule } from 'primeng/dropdown';
 import { SliderModule } from 'primeng/slider';
+import { SkeletonModule } from 'primeng/skeleton';
 import { InputGroup } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { NgbModalBackdrop } from '@ng-bootstrap/ng-bootstrap/modal/modal-backdrop';
@@ -69,7 +70,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NgbToastModule,
     ToastModule,
     NgxSpinnerModule,
-    DialogModule
+    DialogModule,
+    SkeletonModule
   ],
 })
 export class SharedModule {}

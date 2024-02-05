@@ -4,7 +4,6 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { environment } from '../environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 declare const AmCharts: any;
 
 import '../../../assets/charts/amchart/amcharts.js';
@@ -19,6 +18,8 @@ import '../../../assets/charts/amchart/worldLow.js';
 
 import dataJson from 'src/fake-data/map_data';
 import mapColor from 'src/fake-data/map-color-data.json';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+
 
 
 @Component({
@@ -29,6 +30,7 @@ import mapColor from 'src/fake-data/map-color-data.json';
   styleUrls: ['./dashboard.component.scss'],
 })
 export default class DashboardComponent implements OnInit {
+  adminInterestForm: FormGroup;
   user:any;
   oneuser:any;
   loader:boolean=false;
@@ -43,14 +45,30 @@ export default class DashboardComponent implements OnInit {
   loanedpercent: any;
   rejected: any;
   paidamount: any;
+  visible:boolean=false
   test: number;
+  approvedusername: any;
   constructor(
 
     private _http:HttpClient,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private fb: FormBuilder
   ){
+    this.adminInterestForm = this.fb.group({
+        admin_interest: this.fb.control('', [Validators.required]),
+
+    })
 
   }
+  // triggerApproval($id){
+  //   this._http.get(`${environment.baseUrl}/user/get/unapproved/${$id}`)
+  //   .subscribe((response:any)=>{
+  //   this.visible =true;
+  //   this.approvedusername = response.users.name;
+
+  //     console.log(response);
+  //   })
+  // }
   approve($id){
     const id = $id;
     const formData={

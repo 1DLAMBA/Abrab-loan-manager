@@ -137,7 +137,13 @@
       </div>
     </app-card>
   </div> -->
+
+  
+
+
+
   <div class="col-xl-12 col-md-12">
+    
     <app-card
       cardTitle="New Users"
       cardClass="Recent-Users"
@@ -147,16 +153,35 @@
         <table class="table table-hover">
           <tbody>
             <tr class="unread" *ngFor="let table of user">
+              
               <td>
                 <img *ngIf="table.passport"
                   class="rounded-circle"
-                  style="width: 40px"
+                  style="width: 30%; height: auto;"
                   src="{{ avatar_file + table.passport }}"
                   alt="activity-user"
                 />
                 
               </td>
               <td>
+                <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+                  <ng-template pTemplate="header">
+                      <div class="inline-flex align-items-center justify-content-center gap-2">
+              
+                          <span class="font-bold white-space-nowrap">Confirm</span>
+                      </div>
+                  </ng-template>
+                  <p class="m-0">
+                     Insert Your Loan Interest in {{approvedusername}}'s Loan
+                  </p>
+                  <form [formGroup]="adminInterestForm">
+                    <input type="number" class="form-control" formControlName="admin_interest" name="admin_interest">
+                  </form>
+                  <ng-template pTemplate="footer">
+                      <button class="btn btn-outline-danger" (click)="visible = false" > No</button> &nbsp;&nbsp;
+                      <button class="btn btn-outline-success" (click)="this.approve(table.id)">Yes</button>
+                  </ng-template>
+              </p-dialog>
                 <h6 class="mb-1">{{ table.name }}</h6>
                 <p class="m-0">{{ table.email }}</p>
               </td>

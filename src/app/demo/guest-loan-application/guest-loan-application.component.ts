@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, TemplateRef} from '@angular/core';
+import { Component, inject, OnDestroy, TemplateRef, OnInit} from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -15,7 +15,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './guest-loan-application.component.html',
   styleUrls: ['./guest-loan-application.component.scss']
 })
-export class GuestLoanApplicationComponent {
+export class GuestLoanApplicationComponent implements OnInit {
   toastService = inject(ToastService);
 LoanForm: FormGroup;
   loan1:boolean=true;
@@ -34,6 +34,8 @@ LoanForm: FormGroup;
   g1_uploadedIdentificationDocumentFile2: string;
   g2_uploadedIdentificationDocumentFile1: string;
   g2_uploadedIdentificationDocumentFile2: string;
+  avatar_file: string;
+  activeloan: any;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -61,7 +63,16 @@ LoanForm: FormGroup;
       guarantor2_identification2: this.fb.control('', [Validators.required]),
      })
   }
+ngOnInit(): void {
+  this._http.get(`${environment.baseUrl}/user/get/unapproved/${this.id}`)
+      .subscribe((response: any) => {
+        console.log(response)
+        this.avatar_file = environment.baseUrl + '/file/get/';
 
+        this.activeloan = response.users;
+
+      })
+}
   showStandard(template: TemplateRef<any>) {
 		this.toastService.show({ template,  message:'' });
 	}
@@ -178,7 +189,25 @@ LoanForm: FormGroup;
     });
     
   }
-
+  submitloan(){
+    const formData2 = {
+      user_id:this.id,
+      loan_amount: this.LoanForm.value.loan_amount,
+      installment_period:this.LoanForm.value.installment_period
+  }
+  this._http.post(`${environment.baseUrl}/user/loanagain`, formData2)
+      .subscribe({
+        next: (response) => {
+          this.router.navigate(['/guest-dashboard']);
+          console.log('Loan Added', response)
+           
+        },
+        error: (res) => {
+          window.alert('You already have a loan')
+          console.log('User Exists')
+        }  
+  });
+  }
   submit($success, $danger){
     
     if(this.LoanForm.invalid){
@@ -186,6 +215,7 @@ LoanForm: FormGroup;
       this.showDanger($danger);
       return;
     }
+    // this.createloan($success);
     
     const baseUrlLength = (environment.baseUrl + '/file/get/').length;
  this.g1_IdentificationDocumentFile1 = this.g1_uploadedIdentificationDocumentFile1.slice(
@@ -245,7 +275,11 @@ LoanForm: FormGroup;
       }  
 });
 
-const formData2 = {
+
+
+}
+createloan($success){
+  const formData2 = {
     user_id:this.id,
     loan_amount: this.LoanForm.value.loan_amount,
     installment_period:this.LoanForm.value.installment_period
@@ -262,7 +296,6 @@ this._http.post(`${environment.baseUrl}/user/loan`, formData2)
         console.log('User Exists')
       }  
 });
-
 
 }
 
