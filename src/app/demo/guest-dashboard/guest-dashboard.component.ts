@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, TemplateRef, OnInit, inject } from '@angular/core';
 import {
   Router, ActivatedRoute,
   ActivatedRouteSnapshot,
@@ -8,6 +8,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { environment } from '../environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { ToastService } from '../toast.service';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
   styleUrls: ['./guest-dashboard.component.scss']
 })
 export class GuestDashboardComponent implements OnInit {
+  toastService = inject(ToastService);
   AccountForm: FormGroup;
   title = 'Abrab';
   id: string;
@@ -98,6 +100,10 @@ export class GuestDashboardComponent implements OnInit {
       })
   }
 
+  showSuccess(template: TemplateRef<any>, message: string = 'Default success message') {
+		this.toastService.show({ template, classname: 'bg-success text-light', delay: 5000, message:message });
+	}
+
   proceed() {
     if (this.user.loan_amount) {
       window.alert('You have a loan already')
@@ -106,7 +112,7 @@ export class GuestDashboardComponent implements OnInit {
     this.router.navigate([`/guest-loan/${this.id}`])
   }
 
-  handleFileUpload(e: any, userId) {
+  handleFileUpload(e: any, userId, $success) {
     this.contractLoader = true;
     let file = e.target.files[0];
     const formData: FormData = new FormData();
@@ -134,6 +140,8 @@ export class GuestDashboardComponent implements OnInit {
           .subscribe({
             next: (response) => {
     this.contractLoader = false;
+    this.showSuccess($success)
+
 
               console.log('CONTRACT ADDED SUCCESFULLY', response)
             }

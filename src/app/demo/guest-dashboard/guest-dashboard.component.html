@@ -1,3 +1,4 @@
+<ng-template #successTpl> File Uploaded </ng-template>
 
 
 
@@ -187,7 +188,7 @@
       <input type="file" #contractLetter name="contractLetter"
         id="contractLetter" hidden accept="image/jpg,image/jpeg,image/png,PDF"
         maxFileSize="4048"
-        (change)="handleFileUpload($event, user.id)" />
+        (change)="handleFileUpload($event, user.id, successTpl)" />
     </div>
   
     <div class="modal-header mb-3">
