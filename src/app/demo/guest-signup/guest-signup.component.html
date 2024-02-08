@@ -63,7 +63,7 @@
               class="border rounded shadow-sm p-25 img-fix-h img-fit img-fluid mb-2 p-link shadow-2 w-full"
               [src]="uploadedAvatarFile" onError="this.src='../../../assets/images/icons8-user-80 (1).png';"
               alt="Avatar File" />
-            <button pButton pRipple type="button" label="Upload Paasport" (click)="avatar.click()"
+            <button pButton pRipple type="button" label="Upload Passport" (click)="avatar.click()"
               class="p-3 w-full mt-auto p-button-primary p-button-raised"></button>
             <input type="file" #avatar name="AvatarUpload" id="AvatarUpload" hidden accept="image/jpg,image/jpeg,image/png" maxFileSize="2048" (change)="handleFileUpload($event, 'avatar', filefail, filesuccess)" />
           </div>

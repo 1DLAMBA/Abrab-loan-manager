@@ -87,9 +87,10 @@ h1 small{
   font-size:0.8rem
 }
 body{
-    background-image: url('../../../assets/images/AbrabLogo2.png');
-    background-size: cover;
+    background-image: url('../../../assets/images/AbrabLogo3.png');
+    background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
     height: 100vh;
 }
 .sub-context{

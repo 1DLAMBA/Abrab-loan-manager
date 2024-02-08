@@ -140,7 +140,7 @@ export class GuestDashboardComponent implements OnInit {
           .subscribe({
             next: (response) => {
     this.contractLoader = false;
-    this.showSuccess($success)
+    location.reload();
 
 
               console.log('CONTRACT ADDED SUCCESFULLY', response)

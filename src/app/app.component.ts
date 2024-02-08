@@ -15,6 +15,12 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
+    this.spinner.show();
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+      this.view=true;
+    }, 2000);
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         this.view=false;
@@ -22,12 +28,7 @@ export class AppComponent implements OnInit {
       }
       window.scrollTo(0, 0);
     });
-    this.spinner.show();
-    setTimeout(() => {
-      /** spinner ends after 5 seconds */
-      this.spinner.hide();
-      this.view=true;
-    }, 5000);
+    
   }
 
 }

@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="application" class=" justify-content-center d-flex mb-5" style="height: 100vh;">
+  <div *ngIf="application" class=" justify-content-center d-flex mb-5">
     <div *ngIf="!user.approved" class="card-block card pt-5 p-3 m-auto rounded-1 d-flex align-items-center just">
       <h4>Hello, {{user.name}}</h4>
       <img width="200px" src="../../../assets/images/AbrabLogo.png">
@@ -143,7 +143,7 @@
           <h4>Loan Details</h4>
           <span *ngIf="!user.active" class="badge bg-warning text-dark col-3 ">Processing</span>
           <span *ngIf="user.active" class="badge bg-success col-3 ">Active</span>
-          <small *ngIf="!user.active" class="text-c-red">*You are yet to upload your signed contract, <br>it is mandatoryfor your account to be activated</small><br>
+          <small *ngIf="!user.contract" class="text-c-red">*You are yet to upload your signed contract, <br>it is mandatoryfor your account to be activated</small><br>
   
           Amount: ₦{{user.loan_amount | number:'1.2-2'}} &nbsp;&nbsp;
           Installment(months):{{user.installment_period}} &nbsp;&nbsp;
@@ -178,7 +178,7 @@
   
   
   </div>
-  <div *ngIf="acceptance" id="registration" class="letter p-3 m-3 card">
+  <div *ngIf="acceptance" id="registration" class="letter p-5 m-5 card">
   
     <div class="mb-3  d-print-none print-none">
       <button  pButton class="p-button d-print-none p-button-outlined" pRipple type="button"
@@ -192,9 +192,9 @@
     </div>
   
     <div class="modal-header mb-3">
-      <button type="button" class="btn-close" aria-label="Close" (click)="closeacceptance()"></button>
-      <button type="button" id="print" class="feather icon-printer d-print-none btn btn-outline-success" (click)="print()"
-        aria-label="Close"></button>
+      <button type="button" class="btn-close d-print-none " aria-label="Close" (click)="closeacceptance()"></button>
+      <button type="button" [disabled]="!user.active" id="print" class="feather icon-printer d-print-none btn btn-outline-success" (click)="print()"
+        aria-label="Close">&nbsp;  Print</button>
     </div>
   
     <div class="modal-header">
@@ -207,7 +207,7 @@
         <h1 class="title">ABRAB NIGERIA LIMITED</h1>
       </div>
     </div>
-    <div class="row col-12">
+    <div class="">
       <div class="col-9">
         <p>Contact Address: Opposite Michael Block Industry opposite Kosa Kosa filling Station. Lambata Niger State</p>
         
@@ -222,7 +222,7 @@
         <b>Motto:</b> We share our wealth with you !!!
       </div>
       <div class="col-lg-4">
-        Name: {{user.name}},
+        Name: {{user.name}}
         <br>
         Address: {{user.address}}, {{user.city}}, {{user.state}}
       </div>
@@ -283,7 +283,7 @@
       <div class="col-12 mb-3">Kind Regards,</div>
       <div class="col-12 d-flex mt-3 gap-5">
         <div class=" col-lg-3 abrab-head">
-          <img src="../../../assets/images/stampWithSignature.png" width="120px" alt="">
+          <img *ngIf="user.active" src="../../../assets/images/stampWithSignature.png" width="120px" alt="">
           <div class=" border-top">
             For: Abrab Nigeria Limited</div>
         </div>

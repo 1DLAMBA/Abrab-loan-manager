@@ -53,8 +53,10 @@ export default class TblBootstrapComponent implements OnInit {
   loancard: boolean = true;
   loanercard: boolean = false;
   acceptance: boolean = false;
+  loancardView: boolean = false;
   activeloaners: boolean = true;
   pending: boolean = true;
+  infoView: boolean = false;
   adminform: FormGroup;
   constructor(
     private readonly fb: FormBuilder,
@@ -94,10 +96,10 @@ export default class TblBootstrapComponent implements OnInit {
 
   }
   showacceptance() {
+    this.activeloaners = false;
     this.pending = false;
     this.acceptance = true;
     this.loanercard = false;
-    this.activeloaners = false;
 
   }
   closeacceptance() {
@@ -130,10 +132,11 @@ export default class TblBootstrapComponent implements OnInit {
 
   getuser() {
 
-
+    
     this._http.get(`${environment.baseUrl}/user/get/unapproved`)
-      .subscribe((response: any) => {
-        console.log(response);
+    .subscribe((response: any) => {
+      console.log(response);
+      this.infoView=true;
 
         this.user = response.users.filter((user: any) => user.approved = 'approved' && user.loan_amount && !user.active);
         this.activeuser = response.users.filter((user: any) => user.active);
@@ -153,6 +156,7 @@ export default class TblBootstrapComponent implements OnInit {
         this.avatar_file = environment.baseUrl + '/file/get/';
 
         this.activeloan = response.users;
+        this.loancardView=true;
 
       })
 

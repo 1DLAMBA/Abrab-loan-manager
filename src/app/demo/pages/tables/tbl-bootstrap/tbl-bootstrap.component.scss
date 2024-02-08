@@ -28,8 +28,15 @@
       top: 0 !important;
     }
     .letter {
+      font-family: 'Times New Roman', Times, serif;
       position: absolute !important;
       left: 0 !important;
       top: 0 !important;
+      padding: 0px !important;
+        margin:  0px !important;
+    }
+    .letter img{
+      width: 100px;
     }
   }
+ 

@@ -43,6 +43,7 @@ export default class DashboardComponent implements OnInit {
   loanedamount: string;
   totalinterest: any;
   loanedpercent: any;
+  dashResults: boolean= false;
   rejected: any;
   paidamount: any;
   visible:boolean=false
@@ -111,6 +112,7 @@ export default class DashboardComponent implements OnInit {
       this.approved=response.users.filter((user: any) => user.approved).length;
       
       this.compute();
+      this.dashResults= true;
     })
   }
 

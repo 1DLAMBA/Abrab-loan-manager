@@ -1,212 +1,395 @@
-<div class="row">
+<div class="viewLoad" *ngIf="!infoView">
+
+  <p-skeleton width="100%" height=" 15rem" styleClass="mb-4"></p-skeleton>
+  <p-skeleton width="100%" height=" 15rem" styleClass="mb-4"></p-skeleton>
+</div>
+
+
+<div class="row" *ngIf="infoView">
 
  <p-toast></p-toast>
-  <div *ngIf="pending" class="col-xl-12">
-    <app-card
-      cardTitle="Pending Loans"
-      [options]="false"
-      blockClass="table-border-style"
-    >
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr >
-              
-              <th>Name</th>
-              <th>Phone Number</th>
-              <th>city</th>
-              <th>Loan Amount</th>
-              <th>View</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let table of user">
+ <div *ngIf="!loanercard" class="">
 
-            <td>
-            {{table.name}}</td>
-            <td>
-              {{table.phoneno}}</td>
-              <td>
-                {{table.city}}</td>
-              <td>
-                ₦{{table.loan_amount | number:'1.2-2'}}</td>
-                <td>
-                  <button type="button" class="btn shadow-3 btn-icon btn-rounded btn-info"   (click)="open(myModalContent)" (click)="view(table.id)">
-                    <i class="feather icon-eye"></i>
-                  </button>
-                </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </app-card>
-  </div>
-
-  
-  <ng-template #myModalContent centered let-modal>
-      
-    <div *ngIf="loader" class=" text-center spinner-grow .section-header" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
-    <div *ngIf="userModal">
-      <div class="modal-header">
-        <h4 class="modal-title">{{oneuser.name}}</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-      </div>
-      <div class="modal-header">
-      <img width="150px" src="{{ avatar_file + oneuser.passport }}">
-      <form [formGroup]="adminform" >
-        <div class="input-group mb-3">
-          <input type="text" name="admin_interest" formControlName="admin_interest" class="form-control" placeholder="Interest Rate" />
-        </div>
-      </form>
-      <button type="button" class="feather icon-check-circle btn btn-info btn-outline-success" value="Approve" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="activate(oneuser.id)">Approve</button>
-    </div>
-    <h3  class="modal-body section-header">Personal Details</h3>
-      <div class="modal-body row flex">
-      <div class="col-6">
-        <p>Name:{{oneuser.name}}</p>
-      </div>
-      <div class="col-6">
-        <p>Email:{{oneuser.email}}</p>
-      </div>
-    </div>
-    <div class="modal-body row flex">
-      <div class="col-3">
-        <p>Country:{{oneuser.country}}</p>
-      </div>
-      <div class="col-3">
-        <p>State:{{oneuser.state}}</p>
-      </div>
-      <div class="col-3">
-        <p>City:{{oneuser.city}}</p>
-      </div>
-      <div class="col-3">
-        <p>Address:{{oneuser.address}}</p>
-      </div>
-      <div class="col-9">
-        <p>Employer Phone Number:{{oneuser.employer_phoneno}}</p>
-      </div>
-      <div class="col-6">
-        <p class="fw-bold">Bank:{{oneuser.bank}}</p>
-        </div>
-        <div class="col-6">
-          <p class="fw-bold">Account Name:{{oneuser.account_name}}</p>
-          </div>
-        <div class="col-6">
-          <p class="fw-bold">Account Number:{{oneuser.account_number}}</p>
-  
-          </div>
-    </div> 
-    
-
-    <h5 class="modal-body section-header">Identification Details</h5>
-   <div class="modal-body mb-3 row flex">
-      <div class="col-3">
-      <p>{{oneuser.identification_type}}:{{oneuser.identification_number1}}</p>
-      <div class="border d-flex mx-auto rounded-2 p-2">
-        <a target="_blank" href="{{ avatar_file + oneuser.identification_file1 }}">
-          <button class="btn btn-outline-success feather icon-eye"> View</button>
-        </a>
-      </div>
-      </div>
-      <div class="col-3">
-        <p>{{oneuser.identification_type2}}:{{oneuser.identification_number2}}</p>
-        <div class="border  rounded-2 p-2">
-          <a target="_blank" href="{{ avatar_file + oneuser.identification_file2 }}">
-            <button class="btn btn-outline-success feather icon-eye"> View</button>
-          </a>
-        </div>
-      </div>
-      <div *ngIf="oneuser.contract" class="col-3">
-        <p>contract</p>
-        <div class="border  rounded-2 p-2">
-          <a target="_blank" href="{{ avatar_file + oneuser.contract }}">
-            <button class="btn btn-outline-success feather icon-eye"> View</button>
-          </a>
-        </div>
-        <div *ngIf="!oneuser.contract" class="col-3">
-          <p class="text-danger">This User has not Uploaded their Signed Contract</p>
-         
-      </div>
-    </div>
-    <hr>
-
-    <h3  class="modal-body section-header">Guarantors' Details</h3>
-    <h5 class="modal-body section-header">First Guarantor</h5>
-      <div class="modal-body row flex">
-      <div class="col-6">
-        <p>Name:{{oneuser.guarantor1_name}}</p>
-      </div>
-      <div class="col-6">
-        <p>Phone Number:{{oneuser.guarantor1_phoneno}}</p>
-      </div>
+   <div *ngIf="pending" class="col-xl-12">
+     <app-card
+       cardTitle="Pending Loans"
+       [options]="false"
+       blockClass="table-border-style"
+     >
+       <div class="table-responsive">
+         <table class="table table-hover">
+           <thead>
+             <tr >
+               
+               <th>Name</th>
+               <th>Phone Number</th>
+               <th>city</th>
+               <th>Loan Amount</th>
+               <th>View</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let table of user">
+ 
+             <td>
+             {{table.name}}</td>
+             <td>
+               {{table.phoneno}}</td>
+               <td>
+                 {{table.city}}</td>
+               <td>
+                 ₦{{table.loan_amount | number:'1.2-2'}}</td>
+                 <td>
+                   <button type="button" class="btn shadow-3 btn-icon btn-rounded btn-info"   (click)="open(myModalContent)" (click)="view(table.id)">
+                     <i class="feather icon-eye"></i>
+                   </button>
+                 </td>
+             </tr>
+           </tbody>
+         </table>
+       </div>
+     </app-card>
+   </div>
+ 
+   
+   <ng-template #myModalContent centered let-modal>
+       
+     <div *ngIf="loader" class=" text-center spinner-grow .section-header" role="status">
+       <span class="sr-only">Loading...</span>
+     </div>
+     <div *ngIf="userModal">
+       <div class="modal-header">
+         <h4 class="modal-title">{{oneuser.name}}</h4>
+         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+       </div>
+       <div class="modal-header">
+       <img width="150px" src="{{ avatar_file + oneuser.passport }}">
+       <form [formGroup]="adminform" >
+         <div class="input-group mb-3">
+           <input type="text" name="admin_interest" formControlName="admin_interest" class="form-control" placeholder="Interest Rate" />
+         </div>
+       </form>
+       <button type="button" class="feather icon-check-circle btn btn-info btn-outline-success" value="Approve" aria-label="Close" (click)="modal.dismiss('Cross click')" (click)="activate(oneuser.id)">Approve</button>
+     </div>
+     <h3  class="modal-body section-header">Personal Details</h3>
+       <div class="modal-body row flex">
+       <div class="col-6">
+         <p>Name:{{oneuser.name}}</p>
+       </div>
+       <div class="col-6">
+         <p>Email:{{oneuser.email}}</p>
+       </div>
+     </div>
+     <div class="modal-body row flex">
+       <div class="col-3">
+         <p>Country:{{oneuser.country}}</p>
+       </div>
+       <div class="col-3">
+         <p>State:{{oneuser.state}}</p>
+       </div>
+       <div class="col-3">
+         <p>City:{{oneuser.city}}</p>
+       </div>
+       <div class="col-3">
+         <p>Address:{{oneuser.address}}</p>
+       </div>
+       <div class="col-9">
+         <p>Employer Phone Number:{{oneuser.employer_phoneno}}</p>
+       </div>
+       <div class="col-6">
+         <p class="fw-bold">Bank:{{oneuser.bank}}</p>
+         </div>
+         <div class="col-6">
+           <p class="fw-bold">Account Name:{{oneuser.account_name}}</p>
+           </div>
+         <div class="col-6">
+           <p class="fw-bold">Account Number:{{oneuser.account_number}}</p>
+   
+           </div>
+     </div> 
      
-    </div>
-    <div class="modal-body row flex">
-      <div class="col-3">
-        <p>Address:{{oneuser.guarantor1_address}}</p>
-      </div>
-      
-    </div> 
-    <h6 class="modal-body section-header">First Guarantor Id Details</h6>
+ 
+     <h5 class="modal-body section-header">Identification Details</h5>
     <div class="modal-body mb-3 row flex">
-       <div class="col-6">
-       <p>{{oneuser.guarantor1_identification_type1}}:{{oneuser.guarantor1_identification1}}</p>
-       <div class="border  rounded-2 p-2">
-        <a target="_blank" href="{{ avatar_file + oneuser.guarantor1_identification_file1 }}">
-          <button class="btn btn-outline-success feather icon-eye"> View</button>
-      </a>
-      </div>
+       <div class="col-4">
+       <p>{{oneuser.identification_type}}:{{oneuser.identification_number1}}</p>
+       <div class="border d-flex mx-auto rounded-2 p-2">
+         <a target="_blank" href="{{ avatar_file + oneuser.identification_file1 }}">
+           <button class="btn btn-outline-success feather icon-eye"> View</button>
+         </a>
        </div>
-       <div class="col-6">
-         <p>{{oneuser.guarantor1_identification_type2}}:{{oneuser.guarantor1_identification2}}</p>
+       </div>
+       <div class="col-4">
+         <p>{{oneuser.identification_type2}}:{{oneuser.identification_number2}}</p>
          <div class="border  rounded-2 p-2">
-          <a target="_blank" href="{{ avatar_file + oneuser.guarantor1_identification_file2 }}">
-            <button class="btn btn-outline-success feather icon-eye"> View</button>
-        </a>
-        </div>
+           <a target="_blank" href="{{ avatar_file + oneuser.identification_file2 }}">
+             <button class="btn btn-outline-success feather icon-eye"> View</button>
+           </a>
+         </div>
        </div>
+       <div *ngIf="oneuser.contract" class="col-4">
+         <p>contract</p>
+         <div class="border  rounded-2 p-2">
+           <a target="_blank" href="{{ avatar_file + oneuser.contract }}">
+             <button class="btn btn-outline-success feather icon-eye"> View</button>
+           </a>
+         </div>
+       </div>
+       <div *ngIf="!oneuser.contract" class="col-4">
+         <p class="text-danger">This User has not Uploaded their Signed Contract</p>
+        
      </div>
-     <h5 class="modal-body section-header">Second Guarantor</h5>
-      <div class="modal-body row flex">
-      <div class="col-6">
-        <p class="fw-bold">Name:{{oneuser.guarantor2_name}}</p>
-      </div>
-      <div class="col-6">
-        <p>Phone Number:{{oneuser.guarantor2_phoneno}}</p>
-      </div>
-      
-    </div>
-    <div class="modal-body row flex">
-      <div class="col-3">
-        <p>Address:{{oneuser.guarantor2_address}}</p>
-      </div>
-      
-    </div> 
-    <h6 class="modal-body section-header">Second Guarantor Id Details</h6>
-    <div class="modal-body mb-3 row flex">
+     <hr>
+ 
+     <h3  class="modal-body section-header">Guarantors' Details</h3>
+     <h5 class="modal-body section-header">First Guarantor</h5>
+       <div class="modal-body row flex">
        <div class="col-6">
-       <p>{{oneuser.guarantor2_identification_type1}}:{{oneuser.guarantor2_identification1}}</p>
-         <div class="border  rounded-2 p-2">
-            <a target="_blank" href="{{ avatar_file + oneuser.guarantor2_identification_file1 }}">
-              <button class="btn btn-outline-success feather icon-eye"> View</button>
-          </a>
-          </div>
+         <p>Name:{{oneuser.guarantor1_name}}</p>
        </div>
        <div class="col-6">
-         <p>{{oneuser.guarantor2_identification_type2}}:{{oneuser.guarantor2_identification2}}</p>
-         <div class="border  rounded-2 p-2">
-          <a target="_blank" href="{{ avatar_file + oneuser.guarantor2_identification_file2 }}">
-            <button class="btn btn-outline-success feather icon-eye"> View</button>
-        </a>
-        </div>
+         <p>Phone Number:{{oneuser.guarantor1_phoneno}}</p>
        </div>
+      
      </div>
-  </div>
-  </div>
-  </ng-template>
-  <div *ngIf="loanercard">
+     <div class="modal-body row flex">
+       <div class="col-3">
+         <p>Address:{{oneuser.guarantor1_address}}</p>
+       </div>
+       
+     </div> 
+     <h6 class="modal-body section-header">First Guarantor Id Details</h6>
+     <div class="modal-body mb-3 row flex">
+        <div class="col-6">
+        <p>{{oneuser.guarantor1_identification_type1}}:{{oneuser.guarantor1_identification1}}</p>
+        <div class="border  rounded-2 p-2">
+         <a target="_blank" href="{{ avatar_file + oneuser.guarantor1_identification_file1 }}">
+           <button class="btn btn-outline-success feather icon-eye"> View</button>
+       </a>
+       </div>
+        </div>
+        <div class="col-6">
+          <p>{{oneuser.guarantor1_identification_type2}}:{{oneuser.guarantor1_identification2}}</p>
+          <div class="border  rounded-2 p-2">
+           <a target="_blank" href="{{ avatar_file + oneuser.guarantor1_identification_file2 }}">
+             <button class="btn btn-outline-success feather icon-eye"> View</button>
+         </a>
+         </div>
+        </div>
+      </div>
+      <h5 class="modal-body section-header">Second Guarantor</h5>
+       <div class="modal-body row flex">
+       <div class="col-6">
+         <p class="fw-bold">Name:{{oneuser.guarantor2_name}}</p>
+       </div>
+       <div class="col-6">
+         <p>Phone Number:{{oneuser.guarantor2_phoneno}}</p>
+       </div>
+       
+     </div>
+     <div class="modal-body row flex">
+       <div class="col-3">
+         <p>Address:{{oneuser.guarantor2_address}}</p>
+       </div>
+       
+     </div> 
+     <h6 class="modal-body section-header">Second Guarantor Id Details</h6>
+     <div class="modal-body mb-3 row flex">
+        <div class="col-6">
+        <p>{{oneuser.guarantor2_identification_type1}}:{{oneuser.guarantor2_identification1}}</p>
+          <div class="border  rounded-2 p-2">
+             <a target="_blank" href="{{ avatar_file + oneuser.guarantor2_identification_file1 }}">
+               <button class="btn btn-outline-success feather icon-eye"> View</button>
+           </a>
+           </div>
+        </div>
+        <div class="col-6">
+          <p>{{oneuser.guarantor2_identification_type2}}:{{oneuser.guarantor2_identification2}}</p>
+          <div class="border  rounded-2 p-2">
+           <a target="_blank" href="{{ avatar_file + oneuser.guarantor2_identification_file2 }}">
+             <button class="btn btn-outline-success feather icon-eye"> View</button>
+         </a>
+         </div>
+        </div>
+      </div>
+   </div>
+   </div>
+   </ng-template>
+  
+   
+ <div  *ngIf="activeloaners" class="card">
+     <p-table
+     [globalFilterFields]="['name','installment_period']"
+         [value]="activeuser"
+         dataKey="name"
+         #dt1
+         [rows]="10"
+         [showCurrentPageReport]="true"
+         [rowsPerPageOptions]="[10, 25, 50]"
+         
+         [paginator]="true"
+         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+         
+         >
+         <ng-template pTemplate="caption">
+             <div class="flex">
+                 <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" ></button>
+                 <span class="p-input-icon-left ml-auto">
+                     <i class="pi pi-search"></i>
+                     <input pInputText type="text"  placeholder="Search keyword" />
+                 </span>
+             </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+             <tr>
+                 <th style="min-width:15rem">
+                     <div class="flex align-items-center">
+                         Name
+                         <p-columnFilter type="text" field="results.name" display="menu"></p-columnFilter>
+                     </div>
+                 </th>
+                 <th style="min-width:15rem">
+                     <div class="flex align-items-center">
+                         Investment
+                        </div>
+                 </th>
+                 <th style="min-width:10rem">
+                   <div class="flex align-items-center">
+                       Date
+                       <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+                   </div>
+               </th>
+                 <th style="min-width:20rem">
+                   <div class="flex align-items-center">
+                     Loan Installment Period
+                     <p-columnFilter type="numeric" field="installment_period" display="menu" ></p-columnFilter>
+                 </div>
+                 </th>
+                 
+              
+                 <th style="min-width:13rem">
+                     <div class="flex align-items-center">
+                        
+                       Total Interest
+                         <!-- <p-columnFilter class="p-button-outlined" field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                             <ng-template pTemplate="filter" let-filter="filterCallback">
+                                 <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
+                                 <div class="flex align-items-center px-2">
+                                     <span>{{ activityValues[0] }}</span>
+                                     <span>{{ activityValues[1] }}</span>
+                                 </div>
+                             </ng-template>
+                         </p-columnFilter> -->
+                     </div>
+                 </th>
+                 <th style="min-width: 15rem">
+                     <div class="flex align-items-center">
+                       
+                         Monthly Interest
+                         <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
+                     </div>
+                 </th>
+                 <th style="min-width: 13rem">
+                   <div class="flex align-items-center">
+                       Monthly Payment
+                     </div>
+               </th>
+               <th style="min-width: 13rem">
+                 <div class="flex align-items-center">
+                     Months Paid
+                     <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
+                 </div>
+             </th>
+             <th style="min-width: 10rem">
+               <div class="flex align-items-center">
+                   Months left
+                   <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
+               </div>
+           </th>
+           <th style="min-width: 10rem">
+             <div class="flex align-items-center">
+                 Monthly Payment without Interest
+                </div>
+         </th>
+         <th style="width: 20rem">
+           <div class="flex align-items-center">
+                 Amount Paid
+               </div>
+       </th>
+       <th style="width: 15rem">
+         <div class="flex align-items-center">
+             Outstanding
+             </div>
+     </th>
+             </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-results>
+             <tr>
+                 <td><div>
+                      <button class="btn button border" (click)="getloanerdetails(results.id)">{{results.name}}</button>
+                 
+                     </div>
+                 </td>
+                 <td>
+                 ₦ {{results.loans.loan_amount | number:'1.2-2'}}
+                 
+                   
+                 </td>
+                 <!-- <td>
+                     <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                     <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                 </td> -->
+                 <td>
+                   {{results.loans.created_at | date}}
+ 
+                 </td>
+                 <td>
+                   {{results.loans.installment_period}}
+                 </td>
+                 <td>
+                   ₦  {{results.loans.interest | number: '1.2-2'}}
+ 
+                   </td>
+               
+                 <td>
+                     <!-- <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar> -->
+                     ₦   {{results.loans.monthly_interest | number: '1.2-2'}}
+ 
+                 </td>
+                 <td class="text-center">
+                     <!-- <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i> -->
+                     ₦  {{results.loans.monthly_payment_with_interest | number: '1.2-2'}}
+                 </td>
+                 <td>
+                   {{results.loans.months_paid}}
+               </td>
+               <td>
+                 {{results.loans.months_left}}
+             </td>
+             <td>
+               ₦ {{results.loans.monthly_payment_without_interest | number: '1.2-2'}}
+           </td>
+           <td>
+             ₦ {{results.loans.amount_paid_so_far | number: '1.2-2'}}
+             </td>
+         <td>
+           ₦ {{results.loans.outstanding | number: '1.2-2'}}
+ 
+       </td>
+       <!-- <td>
+         ₦2,587,500
+     </td> -->
+             </tr>
+         </ng-template>
+         <!-- <ng-template pTemplate="emptymessage">
+             <tr>
+                 <td colspan="7">No customers found.</td>
+             </tr>
+         </ng-template> -->
+     </p-table>
+ </div>
+ </div>
+ <div *ngIf="loanercard">
     <div class="card flex justify-content-center">
   
       <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
@@ -225,14 +408,19 @@
           </ng-template>
       </p-dialog>
       </div>
-    <div >
+<div class="skel"  *ngIf='!loancardView'>
+  <p-skeleton width="100%" height="100rem" styleClass="mb-2"></p-skeleton>
+
+</div>
+
+    <div *ngIf='loancardView' >
       <div class="modal-header">
         <h4 class="modal-title">{{activeloan.name}}</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="switch()"></button>
       </div>
       <div class="modal-header">
       <img width="150px" src="{{ avatar_file + activeloan.passport }}">
-      <button type="button" class="feather icon-check-circle btn btn-info btn-outline-success" value="Paid" aria-label="Close" (click)="showDialog()">Paid</button>
+      <button *ngIf="activeloan.loans.outstanding > 0" type="button" class="feather icon-check-circle btn btn-info btn-outline-success" value="Paid" aria-label="Close" (click)="showDialog()">Paid</button>
       <button type="button" class="feather icon-printer btn btn-info btn-success" value="Letter" aria-label="Close" (click)="showacceptance()">Letter</button>
   
     </div>
@@ -241,6 +429,17 @@
       number:'1.2-2'}}</span>
     <span *ngIf="activeloan.active" class="badge bg-warning text-dark">Outstanding: ₦ {{activeloan.loans.outstanding |
       number:'1.2-2'}}</span>
+      <span class="m-5">
+
+        <ngb-progressbar
+        type="success"
+        height="10px"
+        width="50%"
+        [animated]="true"
+        [showValue]="true"
+        [value]="activeloan.loans.amount_paid_so_far/activeloan.loan_amount*100"
+      ></ngb-progressbar>
+      </span>
       <div class="modal-body row flex">
       <div class="col-6">
         <p>Name:{{activeloan.name}}</p>
@@ -384,197 +583,11 @@
      <button class="btn btn-outline-danger" (click)="terminate(activeloan.id)">Terminate Loan</button>
     </div>
   </div>
-  
-<div  *ngIf="activeloaners" class="card">
-    <p-table
-        
-        [value]="activeuser"
-        dataKey="id"
-        [rows]="10"
-        [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[10, 25, 50]"
-        
-        [paginator]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        
-        >
-        <ng-template pTemplate="caption">
-            <div class="flex">
-                <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" ></button>
-                <span class="p-input-icon-left ml-auto">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text"  placeholder="Search keyword" />
-                </span>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th style="min-width:15rem">
-                    <div class="flex align-items-center">
-                        Name
-                        <p-columnFilter type="text" field="results.name" display="menu"></p-columnFilter>
-                    </div>
-                </th>
-                <th style="min-width:15rem">
-                    <div class="flex align-items-center">
-                        Investment
-                       </div>
-                </th>
-                <th style="min-width:10rem">
-                  <div class="flex align-items-center">
-                      Date
-                      <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
-                  </div>
-              </th>
-                <th style="min-width:20rem">
-                  <div class="flex align-items-center">
-                    Loan Installment Period
-                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
-                </div>
-                </th>
-                
-               
-                <!-- <th style="min-width:10rem">
-                    <div class="flex align-items-center">
-                        Status
-                        <p-columnFilter field="status" matchMode="equals" display="menu">
-                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
-                                    <ng-template let-option pTemplate="item">
-                                        <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
-                                    </ng-template>
-                                </p-dropdown>
-                            </ng-template>
-                        </p-columnFilter>
-                    </div>
-                </th> -->
-                <th style="min-width:15rem">
-                    <div class="flex align-items-center">
-                       
-                      Total Interest
-                        <!-- <p-columnFilter class="p-button-outlined" field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                            <ng-template pTemplate="filter" let-filter="filterCallback">
-                                <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
-                                <div class="flex align-items-center px-2">
-                                    <span>{{ activityValues[0] }}</span>
-                                    <span>{{ activityValues[1] }}</span>
-                                </div>
-                            </ng-template>
-                        </p-columnFilter> -->
-                    </div>
-                </th>
-                <th style="min-width: 20rem">
-                    <div class="flex align-items-center">
-                      
-                        Monthly Interest
-                        <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
-                    </div>
-                </th>
-                <th style="min-width: 15rem">
-                  <div class="flex align-items-center">
-                      Monthly Payment
-                    </div>
-              </th>
-              <th style="min-width: 13rem">
-                <div class="flex align-items-center">
-                    Months Paid
-                    <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
-                </div>
-            </th>
-            <th style="min-width: 10rem">
-              <div class="flex align-items-center">
-                  Months left
-                  <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
-              </div>
-          </th>
-          <th style="min-width: 20rem">
-            <div class="flex align-items-center">
-                Monthly Payment without Interest
-               </div>
-        </th>
-        <th style="width: 3rem">
-          <div class="flex align-items-center">
-                Amount Paid
-              </div>
-      </th>
-      <th style="width: 3rem">
-        <div class="flex align-items-center">
-            Outstanding
-            </div>
-    </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-results>
-            <tr>
-                <td><div>
-                     <button class="btn button border" (click)="getloanerdetails(results.id)">{{results.name}}</button>
-                
-                    </div>
-                </td>
-                <td>
-                ₦ {{results.loan_amount | number:'1.2-2'}}
-                
-                  
-                </td>
-                <!-- <td>
-                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
-                </td> -->
-                <td>
-                  {{results.loans.created_at | date}}
-
-                </td>
-                <td>
-                  {{results.loans.installment_period}}
-                </td>
-                <td>
-                  ₦  {{results.loans.interest | number: '1.2-2'}}
-
-                  </td>
-              
-                <td>
-                    <!-- <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar> -->
-                    ₦   {{results.loans.monthly_interest | number: '1.2-2'}}
-
-                </td>
-                <td class="text-center">
-                    <!-- <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i> -->
-                    ₦  {{results.loans.monthly_payment_with_interest | number: '1.2-2'}}
-                </td>
-                <td>
-                  {{results.loans.months_paid}}
-              </td>
-              <td>
-                {{results.loans.months_left}}
-            </td>
-            <td>
-              ₦ {{results.loans.monthly_payment_without_interest | number: '1.2-2'}}
-          </td>
-          <td>
-            ₦ {{results.loans.amount_paid_so_far | number: '1.2-2'}}
-            </td>
-        <td>
-          ₦ {{results.loans.outstanding | number: '1.2-2'}}
-
-      </td>
-      <!-- <td>
-        ₦2,587,500
-    </td> -->
-            </tr>
-        </ng-template>
-        <!-- <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="7">No customers found.</td>
-            </tr>
-        </ng-template> -->
-    </p-table>
-</div>
-
-<div  class=" px-5 card">
+<div  class=" pe-5 card">
 
 <div *ngIf="acceptance"  id="registration" class="letter p-5">
-  <button type="button" class="btn-close" aria-label="Close" (click)="closeacceptance()"></button>
-  <button type="button" id="print"  class="feather no-print icon-printer btn btn-outline-success" (click)="print()" aria-label="Close" ></button>
+  <button type="button" class=" d-print-none print-none btn-close" aria-label="Close" (click)="closeacceptance()"></button>
+  <button type="button" id="print"  class="d-print-none print-none feather no-print icon-printer btn btn-outline-success" (click)="print()" aria-label="Close" ></button>
 
   <div class="modal-header">
     <img width="150px" src="../../../../../assets/images/AbrabLogo.png" alt="">
@@ -590,32 +603,31 @@
     <div class="col-9">
       <p>Contact Address: Opposite Michael Block Industry opposite Kosa Kosa filling Station. Lambata Niger State</p>
     </div>
-    <div class="col-12">
+    <div class="col-lg-6">
       <p>Phone: 0814 585 6651 </p>
     </div>
-    <div class="col-12">
+    <div class="col-lg-6">
       Email: abrabnigerialtd@gmail.com
     </div>
-    <div class="col-12 text-center">
+    <div class="col-12 text-center border-bottom">
       <b>Motto:</b> We share our wealth with you !!!
     </div>
-    <div class="col-12">
-      Name: {{activeloan.name}},
-    </div>
-    <div class="col-12">
+    <div class="col-lg-4">
+      Name: {{activeloan.name}}
+    <br>
       Address: {{activeloan.address}}, {{activeloan.city}}, {{activeloan.state}}
     </div>
-    <div class="col-12">
+    <div class="col-lg-4">
       Guarantor 1: {{activeloan.guarantor1_name}}<br>Location: {{activeloan.guarantor1_address}}
     </div>
-    <div class="col-12">
+    <div class="col-lg-4">
       Guarantor 2: {{activeloan.guarantor2_name}}<br>Location: {{activeloan.guarantor2_address}}
 
     </div>
     <div class="col-12 mb-3">
       {{activeloan.loans.created_at | date}}
     </div>
-    <div class="col-12">
+    <div class="col-12 text-center">
       <u>ACCEPTANCE OF ₦{{activeloan.loan_amount}} LOAN DISBURSEMENT IN {{activeloan.guarantor1_address}} ({{activeloan.phoneno}})</u>
     </div>
     <div class="col-12">
@@ -633,11 +645,11 @@
       </div>
     </div>
     <div class="col-12 mb-3">
-      The loan attracts ₦{{activeloan.loans.interest}} @3.5% of monthly interest rate, application form and administrative charge of ₦2,000 which shall be repaid along with the principal within the agreed period.  
+      The loan attracts ₦{{activeloan.loans.interest}} @{{activeloan.admin_interest}}% of monthly interest rate, application form and administrative charge of ₦2,000 which shall be repaid along with the principal within the agreed period.  
     </div>
     <div class="col-12 mb-3">
       The mode of repayment shall be as follows:<br>
-      Principal: ₦{{activeloan.loan_amount | number: '1.2-2'}}&nbsp;&nbsp; Period of Installment: {{activeloan.loans.loan_period}} Months&nbsp;&nbsp;<br>
+      Principal: ₦{{activeloan.loans.loan_amount | number: '1.2-2'}}&nbsp;&nbsp; Period of Installment: {{activeloan.loans.loan_period}} Months&nbsp;&nbsp;<br>
       Total Interest:₦{{activeloan.loans.interest | number: '1.2-2'}}<br>
       Monthly Interest: ₦ {{activeloan.loans.monthly_interest | number: '1.2-2'}}<br>
       Monthly Payment without interest: ₦ {{activeloan.loans.monthly_payment_without_interest | number: '1.2-2'}}<br>
@@ -655,8 +667,8 @@
     <div class="col-12 mb-3">Kind Regards,</div>
     <div class="col-12 d-flex flex-wrap mt-3 gap-5">
       <div class=" col-lg-3 abrab-head">
-        <img src="../../../../../assets/images/stamp.png" width="250px" alt="">
-        <img style="position: absolute; left:150px; opacity: 0.6; bottom:100px;" src="../../../../../assets/images/CamScanner 01-15-2024 09.32_1.jpg" width="100px" alt="">
+        <img src="../../../../../assets/images/stampWithSignature.png" width="200px" alt="">
+       
         <div class=" border-top">
         For: Abrab Nigeria Limited</div>
       </div>
@@ -677,3 +689,4 @@
 
 
   </div>
+</div>
